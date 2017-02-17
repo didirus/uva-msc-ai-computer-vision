@@ -9,6 +9,7 @@ Albedo, Integrability, Height-map,
 **Color Spaces**
 Convert an RGB-image into the (1) Opponent, (2) Normalized RGB, (3) HSV, (4) YCbCr Color Space and 4 types of Grayscale.
 <br />
+<br />
 Tushar Nimbharkar & Diede Rusticus<br />
 Computer Vision '17<br />
 Artificial Intelligence Master<br />
