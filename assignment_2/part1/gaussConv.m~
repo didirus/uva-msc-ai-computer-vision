@@ -1,0 +1,11 @@
+function [ imOut ] = gaussConv( image , sigma_x , sigma_y , kernel_size )
+
+Gauss_H = gauss(sigma_x,kernel_size);
+Gauss_V = gauss(sigma_y,kernel_size);
+
+imOut = 
+
+
+
+end
+
