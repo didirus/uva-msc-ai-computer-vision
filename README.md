@@ -1,3 +1,12 @@
+edit for 2D Gaussian: <br />
+Convolved_2D = gaussConv(I,1,1,5);<br />
+Convolved_2D = int8(Convolved_2D);<br /><br />
+function [ imOut ] = gaussConv( image , sigma_x , sigma_y , kernel_size )<br />
+Gauss_H = gauss(sigma_x^2,kernel_size);<br />
+Gauss_V = gauss(sigma_y^2,kernel_size);<br />
+Gauss_V = Gauss_V' ;<br />
+imOut = conv2(Gauss_H,Gauss_V,image);<br />
+end<br /><br />
 ## Computer-Vision Lab Assignments
 
 ### Week 1: Matlab tutorial (no files)
