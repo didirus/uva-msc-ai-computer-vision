@@ -12,11 +12,11 @@ values = (-temp_value):1:(temp_value) ;
 constant = -1/(sigma^2) ;
 
 for i=1:length(G)
-    Gd(i) = constant * values(i) * G(i);
+    Gd(i) = double(constant) * double(values(i)) * G(i);
 end
 
 %Do convolution
-imOut = conv2(image,Gd);
+imOut = conv2(image,Gd,'full');
 
 end
 
