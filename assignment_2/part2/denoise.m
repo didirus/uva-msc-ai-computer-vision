@@ -12,11 +12,11 @@ function imOut = denoise(image, kernel_type, kernel_size)
         for c_index = c_dist+1:(cols_I-c_dist)
             subM = image((r_index - r_dist):(r_index + r_dist), (c_index - c_dist):(c_index + c_dist));
             if strcmp(kernel_type, 'box')
-                imOut(r_index, c_index) = mean(subM(:)) ; %box_filter(subM);
+                imOut(r_index, c_index) = mean(subM(:)) ; %box filter
             end
             
             if strcmp(kernel_type , 'median')
-                imOut(r_index, c_index) = median(subM(:)); %median_filter(subM);
+                imOut(r_index, c_index) = median(subM(:)); %median filter
             end
         end
     end
