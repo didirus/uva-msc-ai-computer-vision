@@ -15,4 +15,27 @@ function imOut = myHistMatching ( input , reference )
  end
  %map input image to reference image
  imOut = M(double(input)+1); 
+
+%plots
+
+figure
+subplot(3,2,1)
+imshow(input)
+title('input image')
+subplot(3,2,2)
+histogram(input)
+title('input histogram')
+subplot(3,2,3)
+imshow(reference)
+title('reference image')
+subplot(3,2,4)
+histogram(reference)
+title('reference histogram')
+subplot(3,2,5)
+imshow(imOut)
+title('Histogram Matched image')
+subplot(3,2,6)
+histogram(imOut)
+title('Histogram Matched histogram')
+
 end
