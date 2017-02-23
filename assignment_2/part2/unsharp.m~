@@ -37,16 +37,13 @@ title('input image')
 
 subplot(2,2,2)
 imshow(smooth_image,[])
-title('smoothed image')
+title('input image')
 
 subplot(2,2,3)
 imshow(subtracted_image,[])
-title('subtracted image')
 
 subplot(2,2,4)
 imshow(imOut,[])
-title('final image')
-
 
 
 
