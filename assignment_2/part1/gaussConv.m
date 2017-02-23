@@ -1,14 +1,5 @@
-function [ imOut ] = gaussConv( image , sigma_x , sigma_y , kernel_size )
-
-Gauss_H = gauss(sigma_x,kernel_size);
-Gauss_V = gauss(sigma_y,kernel_size);
-Gauss_V = Gauss_V' ;
-Gauss_H = Gauss_H / (sum(Gauss_H));
-Gauss_V = Gauss_V / (sum(Gauss_V));
-
-imOut = conv2(Gauss_H,Gauss_V,image);
-
-
-
+function [ conv ] = gaussConv( image,sigma_x,sigma_y,kernel_size )
+Gauss_x = gauss(sigma_x, kernel_size);
+Gauss_y = gauss(sigma_y, kernel_size);
+conv = conv2(Gauss_x, Gauss_y, image, 'full');
 end
-
