@@ -1,8 +1,9 @@
 
-test = 'unsharp';
-
-
-
+% test = 'denoise';
+% test = 'Histogram_matching';
+% test = 'compute_gradient';
+% test = 'unsharp';
+test = 'LoG';
 %2.1
 if (strcmp(test,'denoise'))
 
@@ -34,12 +35,16 @@ end
 %2.5
 
 if (strcmp(test,'LoG'))
-    lena = imread('../Images/image1.jpeg');
-    figure
+%     lena = imread('../Images/image1.jpeg');
+    [X, map] = imread('../Images/image1.jpeg');
+    if ~isempty(map)
+        image = ind2gray(X,map);
+    end
+    
     subplot(131)
-    imshow(compute_LoG(lena, 1))
+    imshow(compute_LoG(image, 1),[])
     subplot(132)
-    imshow(compute_LoG(lena, 2))
+    imshow(compute_LoG(image, 2),[])
     subplot(133)
-    imshow(compute_LoG(lena, 3))
+    imshow(compute_LoG(image, 3),[])
 end
