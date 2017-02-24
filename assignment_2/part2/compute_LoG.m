@@ -17,8 +17,8 @@ function imOut = compute_LoG(image, LOG_type)
             
         case 3
             %method 3
-	    %Taking the diff between two Gaussians (DoG) computed
-		%at different scales S1 and S2.
+            %Taking the diff between two Gaussians (DoG) computed
+            %at different scales S1 and S2.
             sigma1 = 1;
             sigma2 = 4;
             imOut = imgaussfilt(image, sigma1) - imgaussfilt(image, sigma2);
