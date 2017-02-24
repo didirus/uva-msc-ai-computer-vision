@@ -10,7 +10,7 @@ function [im_magnitude, im_direction] = compute_gradient(image)
     
     %compute magnitude and direction of the gradients
     im_magnitude = sqrt(G_x.^2+G_y.^2);
-    im_direction = atan(G_x./G_y);
+    im_direction = atan(G_y./G_x);
     
     %plots
     subplot(221);

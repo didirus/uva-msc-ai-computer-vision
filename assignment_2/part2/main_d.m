@@ -1,6 +1,6 @@
 
 % test = 'denoise';
-% test = 'Histogram_matching';
+%  test = 'Histogram_matching';
 % test = 'compute_gradient';
 % test = 'unsharp';
 test = 'LoG';
@@ -41,10 +41,16 @@ if (strcmp(test,'LoG'))
         image = ind2gray(X,map);
     end
     
-    subplot(131)
+    subplot(221)
+    imshow(image,[])
+    title('Original Image')
+    subplot(222)
     imshow(compute_LoG(image, 1),[])
-    subplot(132)
+    title('Method 1')
+    subplot(223)
     imshow(compute_LoG(image, 2),[])
-    subplot(133)
+    title('Method 2')
+    subplot(224)
     imshow(compute_LoG(image, 3),[])
+    title('Method 3')
 end
