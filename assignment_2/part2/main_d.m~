@@ -1,9 +1,9 @@
 
 % test = 'denoise';
 %  test = 'Histogram_matching';
-test = 'compute_gradient';
+% test = 'compute_gradient';
 % test = 'unsharp';
-% test = 'LoG';
+test = 'LoG';
 %2.1
 if (strcmp(test,'denoise'))
 
@@ -21,7 +21,6 @@ end
 %2.3
 if (strcmp(test,'compute_gradient'))
     I  = imread('../Images/image3.jpeg');
-    I = double(I);
     [x,y] = compute_gradient(I);
 end
 %2.4
@@ -29,7 +28,7 @@ if (strcmp(test,'unsharp'))
     I  = imread('../Images/image4.jpeg');
     I=double(I);
     sigma = 50;
-    kernel_size = 5;
+    kernel_size = 701;
     k=2;
     [x] = unsharp ( I , sigma , kernel_size , k );
 end

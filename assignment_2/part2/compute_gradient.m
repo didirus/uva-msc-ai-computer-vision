@@ -9,24 +9,24 @@ function [im_magnitude, im_direction] = compute_gradient(image)
     G_y = conv2(grad_v, image,'full');
     
     %compute magnitude and direction of the gradients
-    im_magnitude = sqrt(G_x.^2+G_y.^2);
+    im_magnitude = sqrt(G_x.^2 + G_y.^2);
     im_direction = atan(G_y./G_x);
     
     %plots
     subplot(221);
-    imshow(G_x)
+    imshow(G_x,[])
     title('Gradient X')
     
     subplot(222);
-    imshow(G_y)
+    imshow(G_y,[])
     title('Gradient Y')
     
     subplot(223);
-    imshow(uint8(im_magnitude))
+    imshow(uint8(im_magnitude),[])
     title('Magnitude')
     
     subplot(224);
-    imshow(im_direction)
+    imshow(im_direction,[])
     title('Direction')
     
 end
