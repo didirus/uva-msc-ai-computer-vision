@@ -8,14 +8,17 @@ test = 'compute_gradient';
 if (strcmp(test,'denoise'))
 
     I  = imread('../Images/image2.jpeg');
+    I = double(I);
     X = denoise(I,'median',[3 3]);
 
-    imshow(X)
+    imshow(X,[])
 end
 %2.2
 if (strcmp(test,'Histogram_matching'))
     input = imread('../Images/input.png');
     reference = imread('../Images/reference.png');
+    input= double(input);
+    reference = double(reference);
     match_im = myHistMatching( input, reference );
 end
 %2.3
