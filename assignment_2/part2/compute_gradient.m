@@ -6,8 +6,8 @@ function [im_magnitude, im_direction] = compute_gradient(image)
     grad_v = [1 +2 +1; 0 0 0; -1 -2 -1];
     grad_h = grad_v';
     %convolve the image with sobel
-    G_x = conv2(grad_h, image,'full');
-    G_y = conv2(grad_v, image,'full');
+    G_x = conv2(grad_v, image,'full');
+    G_y = conv2(grad_h, image,'full');
     
     %compute magnitude and direction of the gradients
     im_magnitude = sqrt(G_x.^2 + G_y.^2);

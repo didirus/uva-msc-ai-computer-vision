@@ -1,6 +1,6 @@
-
-% test = 'denoise';
- test = 'Histogram_matching';
+% Uncomment for running particular part
+test = 'denoise';
+%  test = 'Histogram_matching';
 % test = 'compute_gradient';
 % test = 'unsharp';
 % test = 'LoG';
@@ -9,12 +9,41 @@
 
     %2.1
     if (strcmp(test,'denoise'))
+        J  = imread('../Images/image2.jpeg');
+        I = double(J);
+        X1 = denoise(I,'box', [3 3]);
+        X2 = denoise(I,'box', [5 5]);
+        X3 = denoise(I,'box', [7 7]);
+        X4 = denoise(I,'box', [9 9]);
+        Y1 = denoise(I,'median',[3 3]);
+        Y2 = denoise(I,'median',[5 5]);
+        Y3 = denoise(I,'median',[7 7]);
+        figure;
+        subplot(2,4,1);
+        imshow(X1)
+        title('Box: 3x3')
+        subplot(2,4,2);
+        imshow(X2)
+        title('Box: 5x5')
+        subplot(2,4,3);
+        imshow(X3)
+        title('Box: 7x7')
+        subplot(2,4,4);
+        imshow(X4)
+        title('Box: 9x9')
+        subplot(2,4,5);
+        imshow(Y1)
+        title('Median: 3x3')
+        subplot(2,4,6);
+        imshow(Y2)
+        title('Median: 5x5')
+        subplot(2,4,7);
+        imshow(Y3)
+        title('Median: 7x7')
+        subplot(2,4,8);
+        imshow(J, [])
+        title('Original image')
 
-        I  = imread('../Images/image2.jpeg');
-        I = double(I);
-        X = denoise(I,'median',[3 3]);
-
-        imshow(X,[])
     end
     %2.2
     if (strcmp(test,'Histogram_matching'))
