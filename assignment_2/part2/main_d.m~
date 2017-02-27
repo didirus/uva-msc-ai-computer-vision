@@ -20,6 +20,8 @@
     if (strcmp(test,'Histogram_matching'))
         input = imread('../Images/input.png');
         reference = imread('../Images/reference.png');
+%         input= double(input);
+%         reference = double(reference);
         match_im = myHistMatching( input, reference );
     end
     %2.3

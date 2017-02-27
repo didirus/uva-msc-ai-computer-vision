@@ -16,7 +16,7 @@ function imOut = compute_LoG(image, LOG_type)
             %Convolving the image directly with LoG operator.
             
             % Directly get the LoG filter
-            h = fspecial('log');
+            h = fspecial('log',9,0.7);
             %filter image with Log filter
             imOut = imfilter(image, h);
             
