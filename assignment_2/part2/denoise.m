@@ -1,12 +1,16 @@
 function imOut = denoise(image, kernel_type, kernel_size)
-    kernel_r = kernel_size(1);
-    kernel_c = kernel_size(2);
-    rows_I = size(image, 1);
-    cols_I = size(image, 2);
+    kernel_r = kernel_size(1); %row
+    kernel_c = kernel_size(2); %column
+    rows_I = size(image, 1); %no. of rows in image
+    cols_I = size(image, 2); %no. of cols in image
+    
     imOut = zeros([rows_I, cols_I], 'uint8');
     
-    r_dist = (kernel_r-1)/2;
+    %centering
+    r_dist = (kernel_r-1)/2; 
     c_dist = (kernel_c-1)/2;
+    %slide the window over the image
+    % take mean or median accordingly
     
     for r_index = r_dist+1:(rows_I-r_dist)
         for c_index = c_dist+1:(cols_I-c_dist)
