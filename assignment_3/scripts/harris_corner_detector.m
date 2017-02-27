@@ -28,7 +28,7 @@ function H = harris_corner_detector(image)
     C = convn(C, kernel, 'same');
     
     % compute H
-    H = (A.*C-B.^2) - 0.04*(A+C).^2
+    H = (A.*C-B.^2) - 0.04*(A+C).^2;
     
     % get corner points
     threshold = 0.00001;
@@ -47,7 +47,7 @@ function H = harris_corner_detector(image)
         for r_index = r_center+1:(rows-r_center)
             for c_index = c_center+1:(cols-c_center)
                 window = image1((r_index - r_center):(r_index + r_center), (c_index - c_center):(c_index + c_center));
-                if (greater than neightbours) and (greater than threshold)
+%                 if (greater than neightbours) and (greater than threshold)
                     
             end
         end
