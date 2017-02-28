@@ -1,6 +1,13 @@
 function [H, r, c] = harris_corner_detector(image)  
     sigma = 2;
-    kernel_size = 17;
+    kernel_size = 17; %2 17
+    
+%     dx = [-1 0 1; -1 0 1; -1 0 1]; % The Mask 
+%     dy = dx';
+%     %%%%%% 
+%     smoothed_image_x = convn(double(image), double(dx), 'same');  
+%     smoothed_image_y = convn(double(image), double(dy), 'same');
+
     
     % compute Ix
     gaussfilter_x = gauss(sigma, kernel_size);
@@ -10,7 +17,7 @@ function [H, r, c] = harris_corner_detector(image)
     gaussfilter_y = gauss(sigma, kernel_size);
     gaussfilter_y = gaussfilter_y';
     [smoothed_image_y, ~] = gaussDer(image, gaussfilter_y, sigma);
-    
+%     
     % compute A
     A = smoothed_image_x .^ 2;
     kernel = fspecial('gaussian', [kernel_size kernel_size], sigma);
@@ -30,7 +37,7 @@ function [H, r, c] = harris_corner_detector(image)
     H = (A.*C-B.^2) - 0.04*(A+C).^2;
     
     % get corner points
-    threshold = 100;
+    threshold = 100; %100
     
     rows = size(image, 1); % no. of rows in image
     cols = size(image, 2); % no. of cols in image
