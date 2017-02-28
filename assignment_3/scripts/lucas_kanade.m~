@@ -1,6 +1,5 @@
 function [ outIm ] = lucas_kanade(region_size, image1, image2 )
-   v_p = [];
-   u_p = [];
+
     for i = 1:region_size:size(image1,1) - (size(image1,1)/region_size)
         for j = 1:region_size:size(image1,2) - (size(image1,2)/region_size)
             % get regions
@@ -22,17 +21,16 @@ function [ outIm ] = lucas_kanade(region_size, image1, image2 )
             v1 = pinv(A'*A);
             v2 = A' * b;
             v = v1 * v2;
-%             disp(v(1,:))
-            
-            v_p = [v_p v(1,:)];
-            u_p = [u_p v(2,:)];
+            disp(v(1,:))
+            figure(1)
+            quiver(v(1)
             
         end
     end
 %     quiver(v(:1),v(:,2))
     outIm =v;
 %     disp(size(v))
-    figure
-    quiver(u_p,v_p)
+%     figure
+%     quiver(x,y,u,v)
 end
 
