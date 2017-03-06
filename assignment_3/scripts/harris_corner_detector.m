@@ -18,7 +18,7 @@ function [H, r, c] = harris_corner_detector(image)
     gaussfilter_y = gauss(sigma, kernel_size);
     gaussfilter_y = gaussfilter_y';
     [smoothed_image_y, ~] = gaussDer(image, gaussfilter_y, sigma);
-%     
+
     % compute A
     A = smoothed_image_x .^ 2;
     kernel = fspecial('gaussian', [kernel_size kernel_size], sigma);
@@ -37,7 +37,6 @@ function [H, r, c] = harris_corner_detector(image)
     % compute H
     H = (A.*C-B.^2) - 0.04*(A+C).^2;
     
-%     size(H)
     % get corner points
     threshold = 100; %100
     
