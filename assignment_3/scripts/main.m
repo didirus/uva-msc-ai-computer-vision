@@ -65,8 +65,6 @@ if (strcmp(test,'lucas'))
     axis equal
     imshow(img1);
     hold on
-    %[m,n] = size(rgb2gray(syn1));
-    %[x,y] = meshgrid(1:n, 1:m);
     quiver(M(:,2),M(:,1),u',v');
 
 end
@@ -101,33 +99,11 @@ if (strcmp(test,'tracking'))
         
         % Getting the optical flow arrows with Lucas-Kanade
         [u, v] = lk(region_size, img1, img2, int16(C));
-        
-        % Filter the arrows for only the corner points
-%         u_corners = zeros(size(C,1),1); 
-%         v_corners = zeros(size(C,1),1);
-%         for k = 1:size(C,1)
-%             if C(k,1) <= size(u,1) && C(k,2) <= size(u,2)
-%                 u_corners(k) = u(C(k,1),C(k,2));
-%                 v_corners(k) = v(C(k,1),C(k,2));
-%             end
-%         end
-%         new_u = zeros(size(u));
-%         new_v = zeros(size(v));
-%         for k = 1:size(C,1)
-%             if C(k,1) <= size(u,1) && C(k,2) <= size(u,2)
-%                 new_u(C(k,1), C(k,2)) = u(C(k,1), C(k,2));
-%                 new_v(C(k,1), C(k,2)) = v(C(k,1), C(k,2));
-%             end
-%         end
-%         
+          
         fig = figure(i);   
         axis equal
         imshow(rgb2gray(img1))
         hold on;
-%         [m,n] = size(rgb2gray(img1));
-%         [x,y] = meshgrid(1:n, 1:m);
-        %disp(size(x))
-        %disp(size(new_u))
         q = quiver(int_C(:,2),int_C(:,1),u',v');
         q.Color = 'red';
         q.LineWidth = 1;

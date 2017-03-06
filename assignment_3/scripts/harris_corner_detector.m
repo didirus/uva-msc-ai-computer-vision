@@ -33,7 +33,6 @@ function [H, r, c] = harris_corner_detector(image, sigma, kernel_size, threshold
     
     r = []; %zeros(rows, 1); r = [3, 3, 5, 6, 0 , 0 , 0, 0]
     c = []; % zeros(cols, 1); c = [1, 2, 3 ,5]
-    %indicator = 1;
 
     % centering
 
@@ -41,7 +40,7 @@ function [H, r, c] = harris_corner_detector(image, sigma, kernel_size, threshold
     c_center = (window_size-1)/2;
     
     for i = 1:1 % 1:3for each colorspace
-        im = H(:,:); %H(:,:,i)
+        im = H(:,:);
         for r_index = r_center+1:(rows-r_center)
             for c_index = c_center+1:(cols-c_center)
                 window = im((r_index - r_center):(r_index + r_center), (c_index - c_center):(c_index + c_center));
