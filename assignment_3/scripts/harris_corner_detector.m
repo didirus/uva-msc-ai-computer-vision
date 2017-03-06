@@ -1,15 +1,5 @@
-function [H, r, c] = harris_corner_detector(image)  
-    sigma = 2;
-    kernel_size = 17; %2 17
-%     change to grayscale
-%     image = rgb2gray(image);
-%     dx = [-1 0 1; -1 0 1; -1 0 1]; % The Mask 
-%     dy = dx';
-%     %%%%%% 
-%     smoothed_image_x = convn(double(image), double(dx), 'same');  
-%     smoothed_image_y = convn(double(image), double(dy), 'same');
+function [H, r, c] = harris_corner_detector(image, sigma, kernel_size, threshold, window_size)  
 
-    
     % compute Ix
     gaussfilter_x = gauss(sigma, kernel_size);
     [smoothed_image_x, ~] = gaussDer(image, gaussfilter_x, sigma);
@@ -37,9 +27,7 @@ function [H, r, c] = harris_corner_detector(image)
     % compute H
     H = (A.*C-B.^2) - 0.04*(A+C).^2;
     
-    % get corner points
-    threshold = 100; %100
-    
+    % get corner points 
     rows = size(image, 1); % no. of rows in image
     cols = size(image, 2); % no. of cols in image
     
@@ -48,7 +36,7 @@ function [H, r, c] = harris_corner_detector(image)
     %indicator = 1;
 
     % centering
-    window_size = 19;
+
     r_center = (window_size-1)/2; 
     c_center = (window_size-1)/2;
     
@@ -65,17 +53,6 @@ function [H, r, c] = harris_corner_detector(image)
         end
     end
     
-%     plots
-%     figure;
-% %     subplot(1,3,1)
-% %     imshow(smoothed_image_x)
-% %     subplot(1,3,2)
-% %     imshow(smoothed_image_y)
-% %     subplot(1,3,3)
-%     imshow(image)
-%     hold on;
-%     plot(c,r,'r.','MarkerSize',5)
-
 r = r';
 c = c';
 end
