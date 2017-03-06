@@ -1,6 +1,6 @@
 % Uncomment for running particular part
-test = 'denoise';
-%  test = 'Histogram_matching';
+% test = 'denoise';
+ test = 'Histogram_matching';
 % test = 'compute_gradient';
 % test = 'unsharp';
 % test = 'LoG';

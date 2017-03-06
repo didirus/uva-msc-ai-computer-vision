@@ -13,6 +13,9 @@ function imOut = myHistMatching ( input , reference )
      %mapping
      M = zeros(256,1,'uint8');
      for i = 1:256
+         disp(c_input(i))
+         disp(c_ref)
+         disp(c_input(i) - c_ref)
         [~,x] = min(abs(c_input(i) - c_ref));
         M(i) = x-1;
      end

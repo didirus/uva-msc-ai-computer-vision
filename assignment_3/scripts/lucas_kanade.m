@@ -33,6 +33,6 @@ function [ outIm ] = lucas_kanade(region_size, image1, image2 )
     outIm =v;
 %     disp(size(v))
     figure
-    quiver(u_p,v_p)
+    quiver(u_p,v_p,1,'r')
 end
 
