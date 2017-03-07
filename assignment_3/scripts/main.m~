@@ -65,14 +65,14 @@ if (strcmp(test,'lucas'))
     axis equal
     imshow(img1);
     hold on
-    quiver(M(:,2),M(:,1),u',v');
+    quiver(M(:,2) , M(:,1), u' , v');
 
 end
 
 % 3.4
 if (strcmp(test,'tracking'))
-%      test1 = 'person_toy';
-   test1 = 'pingpong';
+     test1 = 'person_toy';
+%     test1 = 'pingpong';
 
     if strcmp(test1, 'person_toy')
         nr_images = 103;
@@ -98,26 +98,26 @@ if (strcmp(test,'tracking'))
         end
         
         % Getting the optical flow arrows with Lucas-Kanade
-        [u, v] = lk(region_size, img1, img2, int16(C));
+        [u, v] = lk(region_size, img1, img2, C);
           
         fig = figure(i);   
         axis equal
         imshow(rgb2gray(img1))
         hold on;
-        q = quiver(int_C(:,2),int_C(:,1),u',v');
+        q = quiver(C(:,2),C(:,1),u',v');
         q.Color = 'red';
         q.LineWidth = 1;
         hold on;
         plot(C(:,2),C(:,1),'r.','MarkerSize',15)
-        n_f = ['new3/' num2str(i) '.png'];
+        n_f = ['new2/' num2str(i) '.png'];
         saveas(fig,n_f)
-        pause(.5);
+        pause(1);
         close(fig)
         
 
         % Getting the corners based on previous opical flow
-        C(:,1) = C(:,1) + 7.5 * u';
-        C(:,2) = C(:,2) + 7.5 * v';
+        C(:,1) = int16(C(:,1)) + int16(  3 * v');
+        C(:,2) = int16(C(:,2)) + int16( 5 * u');
         
     end
 end

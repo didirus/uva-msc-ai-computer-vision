@@ -1,5 +1,8 @@
 function [H, r, c,smoothed_image_x,smoothed_image_y] = harris_corner_detector(image, sigma, kernel_size, threshold, window_size)  
-
+    
+    if size(image,3) > 1
+        image = rgb2gray(image);
+    end
     % compute Ix
     gaussfilter_x = gauss(sigma, kernel_size);
     [smoothed_image_x, ~] = gaussDer(image, gaussfilter_x, sigma);

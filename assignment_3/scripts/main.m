@@ -1,21 +1,26 @@
 % Uncomment for running particular part
 
-%test = 'harris';
+% test = 'harris';
 % test = 'lucas';
 test = 'tracking';
 
+% region_size = 15;
+% sigma = 3;
+% kernel_size = 13;
+% threshold = 200;
+% window_size = 19;
+
 region_size = 15;
 sigma = 3;
-kernel_size = 13;
-threshold = 200;
+kernel_size = 17;
+threshold = 3000;
 window_size = 19;
+
 
 % 3.1
 if (strcmp(test,'harris'))
     I1a = imread('../person_toy/00000001.jpg');
     I2a = imread('../pingpong/0000.jpeg');
-    I1b = rgb2gray(I1a);
-    I2b = rgb2gray(I2a);
     
     [H,r,c,smoothed_image_x,smoothed_image_y] = harris_corner_detector(I2b, sigma, kernel_size, threshold, window_size);
     
@@ -71,8 +76,8 @@ end
 
 % 3.4
 if (strcmp(test,'tracking'))
-     test1 = 'person_toy';
-%     test1 = 'pingpong';
+%      test1 = 'person_toy';
+    test1 = 'pingpong';
 
     if strcmp(test1, 'person_toy')
         nr_images = 103;
@@ -98,26 +103,26 @@ if (strcmp(test,'tracking'))
         end
         
         % Getting the optical flow arrows with Lucas-Kanade
-        [u, v] = lk(region_size, img1, img2, int16(C));
+        [u, v] = lk(region_size, img1, img2, C);
           
         fig = figure(i);   
         axis equal
         imshow(rgb2gray(img1))
         hold on;
-        q = quiver(int_C(:,2),int_C(:,1),u',v');
+        q = quiver(C(:,2),C(:,1),u',v');
         q.Color = 'red';
         q.LineWidth = 1;
         hold on;
         plot(C(:,2),C(:,1),'r.','MarkerSize',15)
-        n_f = ['new2/' num2str(i) '.png'];
+        n_f = ['new1/' num2str(i) '.png'];
         saveas(fig,n_f)
-        pause(1);
+        pause(0.8);
         close(fig)
         
 
         % Getting the corners based on previous opical flow
-%         C(:,1) = C(:,1) + 7.5 * u';
-%         C(:,2) = C(:,2) + 7.5 * v';
+        C(:,1) = int16(C(:,1)) + int16(  2.9 * v'); % 2.9
+        C(:,2) = int16(C(:,2)) + int16( 1.5 * u'); % 1.2,1.5
         
     end
 end

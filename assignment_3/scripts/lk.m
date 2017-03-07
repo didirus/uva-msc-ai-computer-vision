@@ -7,6 +7,9 @@ function [u, v] = lk(region_size, image1, image2, P)
     end
 
     % Calculate derivates
+%     Ix = conv2(double(image1), 0.25 * [-1 1; -1 1]) + conv2(double(image2), 0.25 * [-1 1; -1 1]);
+%     Iy = conv2(double(image1), 0.25 * [-1 -1; 1 1]) + conv2(double(image2), 0.25 * [-1 -1; 1 1]);
+%     It = conv2(double(image1), 0.25 * ones(2)) + conv2(double(image2), -0.25 * ones(2));
     Ix = conv2(double(image1), 0.25 * [-1 1; -1 1]) + conv2(double(image2), 0.25 * [-1 1; -1 1]);
     Iy = conv2(double(image1), 0.25 * [-1 -1; 1 1]) + conv2(double(image2), 0.25 * [-1 -1; 1 1]);
     It = conv2(double(image1), 0.25 * ones(2)) + conv2(double(image2), -0.25 * ones(2));
@@ -46,7 +49,9 @@ function [u, v] = lk(region_size, image1, image2, P)
         % 3.3.2: For each region compute A, A' and b; 
         % then estimate optical flow
         A = [Ix_window(:) Iy_window(:)];
-        U = pinv(A' * A) * A' * -It_window(:);
+         U = pinv(A) * -It_window(:);
+        
+%         U = pinv(A' * A) * A' * -It_window(:);
 
         u = [u U(1)];
         v = [v U(2)];
