@@ -17,15 +17,15 @@ if (strcmp(test,'harris'))
     I1b = rgb2gray(I1a);
     I2b = rgb2gray(I2a);
     
-    [H,r,c] = harris_corner_detector(I2b, sigma, kernel_size, threshold, window_size);
+    [H,r,c,smoothed_image_x,smoothed_image_y] = harris_corner_detector(I2b, sigma, kernel_size, threshold, window_size);
     
     % plots
     figure;
-%     subplot(1,3,1)
-%     imshow(smoothed_image_x)
-%     subplot(1,3,2)
-%     imshow(smoothed_image_y)
-%     subplot(1,3,3)
+    subplot(1,3,1)
+    imshow(smoothed_image_x)
+    subplot(1,3,2)
+    imshow(smoothed_image_y)
+    subplot(1,3,3)
     imshow(I2b)
     hold on;
     plot(c,r,'r.','MarkerSize',15)
@@ -76,10 +76,10 @@ if (strcmp(test,'tracking'))
 
     if strcmp(test1, 'person_toy')
         nr_images = 103;
-        [~,r,c] = harris_corner_detector(imread('../person_toy/00000001.jpg'), sigma, kernel_size, threshold, window_size);
+        [~,r,c,~,~] = harris_corner_detector(imread('../person_toy/00000001.jpg'), sigma, kernel_size, threshold, window_size);
     elseif strcmp(test1, 'pingpong')
         nr_images = 53;
-        [~,r,c] = harris_corner_detector(imread('../pingpong/0000.jpeg'), sigma, kernel_size, threshold, window_size);
+        [~,r,c,~,~] = harris_corner_detector(imread('../pingpong/0000.jpeg'), sigma, kernel_size, threshold, window_size);
     end
 
     % Getting the corners with Harris Corner detection

@@ -1,4 +1,4 @@
-function [H, r, c] = harris_corner_detector(image, sigma, kernel_size, threshold, window_size)  
+function [H, r, c,smoothed_image_x,smoothed_image_y] = harris_corner_detector(image, sigma, kernel_size, threshold, window_size)  
 
     % compute Ix
     gaussfilter_x = gauss(sigma, kernel_size);
