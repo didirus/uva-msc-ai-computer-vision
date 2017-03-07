@@ -1,7 +1,7 @@
 % Uncomment for running particular part
 
-% test = 'harris';
-test = 'lucas';
+test = 'harris';
+% test = 'lucas';
 % test = 'tracking';
 
 region_size = 15;
@@ -15,10 +15,28 @@ window_size = 19;
 
 % 3.1
 if (strcmp(test,'harris'))
-    I1a = imread('../person_toy/00000001.jpg');
-    I2a = imread('../pingpong/0000.jpeg');
+    test1 = 'pingpong';
+%     test1 = 'toy';
     
-    [H,r,c,smoothed_image_x,smoothed_image_y] = harris_corner_detector(I2a, sigma, kernel_size, threshold, window_size);
+    if (strcmp(test1,'toy'))
+        I = imread('../person_toy/00000001.jpg');
+        [H,r,c,smoothed_image_x,smoothed_image_y] = harris_corner_detector(I, sigma, kernel_size, threshold, window_size);
+        
+    elseif(strcmp(test1,'pingpong'))
+        region_size = 15;
+        sigma = 3;
+        kernel_size = 17;
+        threshold = 3000;
+        window_size = 19;
+        nr_images = 53;
+        I = imread('../pingpong/0000.jpeg');
+        
+        [H,r,c,smoothed_image_x,smoothed_image_y] = harris_corner_detector(I2a, sigma, kernel_size, threshold, window_size);
+        
+        
+        
+    end
+    
     
     % plots
     figure;
@@ -30,7 +48,7 @@ if (strcmp(test,'harris'))
     title('Derivative in Y direction')
     
     subplot(1,3,3)
-    imshow(I2a)
+    imshow(I)
     hold on;
     plot(c,r,'r.','MarkerSize',15)
     title('original image with Corners')

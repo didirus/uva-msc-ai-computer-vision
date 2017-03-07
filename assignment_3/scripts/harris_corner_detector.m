@@ -42,19 +42,18 @@ function [H, r, c,smoothed_image_x,smoothed_image_y] = harris_corner_detector(im
     r_center = (window_size-1)/2; 
     c_center = (window_size-1)/2;
     
-    for i = 1:1 % 1:3for each colorspace
-        im = H(:,:);
-        for r_index = r_center+1:(rows-r_center)
-            for c_index = c_center+1:(cols-c_center)
-                window = im((r_index - r_center):(r_index + r_center), (c_index - c_center):(c_index + c_center));
-                if im(r_index, c_index) == max(window(:)) && im(r_index, c_index) > threshold
-                    r = [r r_index];
-                    c = [c c_index];
-                end                    
+
+    for r_index = r_center+1:(rows-r_center)
+        for c_index = c_center+1:(cols-c_center)
+            window = H((r_index - r_center):(r_index + r_center), (c_index - c_center):(c_index + c_center));
+            if H(r_index, c_index) == max(window(:)) && H(r_index, c_index) > threshold
+                r = [r r_index];
+                c = [c c_index];
             end
         end
     end
     
+%tranpose to change it to column vector   
 r = r';
 c = c';
 end
