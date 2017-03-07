@@ -54,7 +54,7 @@ if (strcmp(test,'lucas'))
     
     M = zeros(floor(size(img1,1)/region_size)*floor(size(img1,2)/region_size),2);
     
-    M_point_r = floor(region_size/2) +1 : region_size : size(img1,1)-1;% -1 because we dont want the last one index goes out f bound
+    M_point_r = floor(region_size/2) +1 : region_size : size(img1,1)-1; % -1 because we dont want the last one index goes out f bound
     M_point_c = floor(region_size/2) +1 : region_size : size(img1,2)-1;
     
     i = 1;
