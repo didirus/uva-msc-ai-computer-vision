@@ -52,7 +52,7 @@ if (strcmp(test,'lucas'))
     
     M = zeros(floor(size(img1,1)/region_size)*floor(size(img1,2)/region_size),2);
     
-    M_point_r = floor(region_size/2) +1 : region_size : size(img1,1)-1; % -1 because we dont want the last one index goes out f bound
+    M_point_r = floor(region_size/2) +1 : region_size : size(img1,1)-1; % -1 because we dont want the last one index goes out of bound
     M_point_c = floor(region_size/2) +1 : region_size : size(img1,2)-1;
     
     i = 1;
@@ -85,10 +85,14 @@ end
 if (strcmp(test,'tracking'))
 %      test1 = 'person_toy';
     test1 = 'pingpong';
-
+    %scale factor in x direction
+    S1 = 2.9;
+    
     if strcmp(test1, 'person_toy')
         nr_images = 103;
         [~,r,c,~,~] = harris_corner_detector(imread('../person_toy/00000001.jpg'), sigma, kernel_size, threshold, window_size);
+        %scale factor in y direction
+        S2 = 1.5;
     elseif strcmp(test1, 'pingpong')
         region_size = 15;
         sigma = 3;
@@ -96,17 +100,18 @@ if (strcmp(test,'tracking'))
         threshold = 3000;
         window_size = 19;
         nr_images = 53;
+        %scale factor in y direction
+        S2 = 1.5;
         [~,r,c,~,~] = harris_corner_detector(imread('../pingpong/0000.jpeg'), sigma, kernel_size, threshold, window_size);
     end
 
     % Getting the corners with Harris Corner detection
     C = [r c];
-    int_C = [r c];
     
     % for every image in the folder
     for i = 1:nr_images
-        int_C = int16(C);
         if strcmp(test1, 'person_toy')
+            
             img1 = imread(['../person_toy/00000' num2str(i,'%03d') '.jpg']);
             img2 = imread(['../person_toy/00000' num2str(i+1,'%03d') '.jpg']);
         elseif strcmp(test1, 'pingpong')

@@ -4,17 +4,13 @@
 test = 'lucas';
 % test = 'tracking';
 
-% region_size = 15;
-% sigma = 3;
-% kernel_size = 13;
-% threshold = 200;
-% window_size = 19;
-
 region_size = 15;
 sigma = 3;
-kernel_size = 17;
-threshold = 3000;
+kernel_size = 13;
+threshold = 200;
 window_size = 19;
+
+
 
 
 % 3.1
@@ -51,11 +47,12 @@ if (strcmp(test,'lucas'))
         img1 = imread('../sphere1.ppm');
         img2 = imread('../sphere2.ppm');
     end
-    %creating the centres for the window.This is beacuse we need to h
+    %creating the centres for the window.This is beacuse we will take
+    %corners from the harris-corner method for the tracking.
     
     M = zeros(floor(size(img1,1)/region_size)*floor(size(img1,2)/region_size),2);
     
-    M_point_r = floor(region_size/2) +1 : region_size : size(img1,1)-1; % -1 because we dont want the last one index goes out f bound
+    M_point_r = floor(region_size/2) +1 : region_size : size(img1,1)-1; % -1 because we dont want the last one index goes out of bound
     M_point_c = floor(region_size/2) +1 : region_size : size(img1,2)-1;
     
     i = 1;
@@ -69,13 +66,17 @@ if (strcmp(test,'lucas'))
     
             
     [u, v] = lk(region_size, img1, img2, M);
-
     figure;
     axis equal
     imshow(img1);
     hold on
     quiver(M(:,2) , M(:,1), u' , v');
-    title('Syn with optical flow')
+    
+    if (strcmp(test1,'syn'))
+        title('Syn with optical flow')
+    elseif(strcmp(test1,'sphere'))
+        title('sphere with optical flow')
+    end
 
 
 end
@@ -84,22 +85,28 @@ end
 if (strcmp(test,'tracking'))
 %      test1 = 'person_toy';
     test1 = 'pingpong';
-
+    %scale factor
+    c1 = 2.9;
+    
     if strcmp(test1, 'person_toy')
         nr_images = 103;
         [~,r,c,~,~] = harris_corner_detector(imread('../person_toy/00000001.jpg'), sigma, kernel_size, threshold, window_size);
     elseif strcmp(test1, 'pingpong')
+        region_size = 15;
+        sigma = 3;
+        kernel_size = 17;
+        threshold = 3000;
+        window_size = 19;
         nr_images = 53;
+        c1 = 
         [~,r,c,~,~] = harris_corner_detector(imread('../pingpong/0000.jpeg'), sigma, kernel_size, threshold, window_size);
     end
 
     % Getting the corners with Harris Corner detection
     C = [r c];
-    int_C = [r c];
     
     % for every image in the folder
     for i = 1:nr_images
-        int_C = int16(C);
         if strcmp(test1, 'person_toy')
             img1 = imread(['../person_toy/00000' num2str(i,'%03d') '.jpg']);
             img2 = imread(['../person_toy/00000' num2str(i+1,'%03d') '.jpg']);
