@@ -1,7 +1,7 @@
 % Uncomment for running particular part
 
-test = 'harris';
-% test = 'lucas';
+% test = 'harris';
+test = 'lucas';
 % test = 'tracking';
 
 region_size = 15;
@@ -56,8 +56,8 @@ end
 
 % 3.2 - 3.3
 if (strcmp(test,'lucas'))
-    test1 = 'syn';
-%     test1 = 'sphere';
+%     test1 = 'syn';
+    test1 = 'sphere';
     if (strcmp(test1,'syn'))
         img1 = imread('../synth1.pgm');
         img2 = imread('../synth2.pgm');
@@ -88,7 +88,9 @@ if (strcmp(test,'lucas'))
     axis equal
     imshow(img1);
     hold on
-    quiver(M(:,2) , M(:,1), u' , v');
+    q=quiver(M(:,2) , M(:,1), u' , v');
+    q.Color = 'red';
+
     
     if (strcmp(test1,'syn'))
         title('Syn with optical flow')
