@@ -4,17 +4,13 @@
 test = 'lucas';
 % test = 'tracking';
 
-% region_size = 15;
-% sigma = 3;
-% kernel_size = 13;
-% threshold = 200;
-% window_size = 19;
-
 region_size = 15;
 sigma = 3;
-kernel_size = 17;
-threshold = 3000;
+kernel_size = 13;
+threshold = 200;
 window_size = 19;
+
+
 
 
 % 3.1
@@ -51,6 +47,8 @@ if (strcmp(test,'lucas'))
         img1 = imread('../sphere1.ppm');
         img2 = imread('../sphere2.ppm');
     end
+    %creating the centres for the window.This is beacuse we will take
+    %corners from the harris-corner method for the tracking.
     
     M = zeros(floor(size(img1,1)/region_size)*floor(size(img1,2)/region_size),2);
     
@@ -68,13 +66,17 @@ if (strcmp(test,'lucas'))
     
             
     [u, v] = lk(region_size, img1, img2, M);
-
     figure;
     axis equal
     imshow(img1);
     hold on
     quiver(M(:,2) , M(:,1), u' , v');
-    title('Syn with optical flow')
+    
+    if (strcmp(test1,'syn'))
+        title('Syn with optical flow')
+    elseif(strcmp(test1,'sphere'))
+        title('sphere with optical flow')
+    end
 
 
 end
@@ -88,6 +90,11 @@ if (strcmp(test,'tracking'))
         nr_images = 103;
         [~,r,c,~,~] = harris_corner_detector(imread('../person_toy/00000001.jpg'), sigma, kernel_size, threshold, window_size);
     elseif strcmp(test1, 'pingpong')
+        region_size = 15;
+        sigma = 3;
+        kernel_size = 17;
+        threshold = 3000;
+        window_size = 19;
         nr_images = 53;
         [~,r,c,~,~] = harris_corner_detector(imread('../pingpong/0000.jpeg'), sigma, kernel_size, threshold, window_size);
     end
