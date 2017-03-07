@@ -65,14 +65,14 @@ if (strcmp(test,'lucas'))
     axis equal
     imshow(img1);
     hold on
-    quiver(M(:,2),M(:,1),u',v');
+    quiver(M(:,2) , M(:,1), u' , v');
 
 end
 
 % 3.4
 if (strcmp(test,'tracking'))
-%      test1 = 'person_toy';
-    test1 = 'pingpong';
+     test1 = 'person_toy';
+%     test1 = 'pingpong';
 
     if strcmp(test1, 'person_toy')
         nr_images = 103;

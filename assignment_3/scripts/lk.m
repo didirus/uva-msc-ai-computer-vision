@@ -19,21 +19,21 @@ function [u, v] = lk(region_size, image1, image2, P)
     for i = 1:size(P,1)
         if ( P(i,1) - region_half) < 1 || (P(i,1) + region_half) > size(Ix,1) || (P(i,2) - region_half) < 1 || (P(i,2) + region_half) > size(Ix,2)
             region_half = region_half - 2;
-            disp(region_half)
+%             disp(region_half)
         else
             region_half = floor(region_size/2);
         end
-        disp('P');
-        disp(P(i,1));
-        disp(P(i,2));
+%         disp('P');
+%         disp(P(i,1));
+%         disp(P(i,2));
         start_r = P(i,1) - region_half;
         end_r = P(i,1) + region_half;
         
         start_c = P(i,2) - region_half;
         end_c = P(i,2) + region_half;
-        disp('s_r e_r s_c e_c');
-        fprintf('s_r %d \n e_r %d \n s_c %d \n e_c %d',start_r,end_r,start_c,end_c);
-        disp(size(Ix));
+%         disp('s_r e_r s_c e_c');
+%         fprintf('s_r %d \n e_r %d \n s_c %d \n e_c %d',start_r,end_r,start_c,end_c);
+%         disp(size(Ix));
         Ix_window = Ix(start_r:end_r,start_c:end_c);
         Iy_window = Iy(start_r:end_r,start_c:end_c);
         It_window = It(start_r:end_r,start_c:end_c);
