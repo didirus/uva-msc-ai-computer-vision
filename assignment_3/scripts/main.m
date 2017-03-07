@@ -1,8 +1,8 @@
 % Uncomment for running particular part
 
 % test = 'harris';
-% test = 'lucas';
-test = 'tracking';
+test = 'lucas';
+% test = 'tracking';
 
 % region_size = 15;
 % sigma = 3;
@@ -22,25 +22,28 @@ if (strcmp(test,'harris'))
     I1a = imread('../person_toy/00000001.jpg');
     I2a = imread('../pingpong/0000.jpeg');
     
-    [H,r,c,smoothed_image_x,smoothed_image_y] = harris_corner_detector(I2b, sigma, kernel_size, threshold, window_size);
+    [H,r,c,smoothed_image_x,smoothed_image_y] = harris_corner_detector(I2a, sigma, kernel_size, threshold, window_size);
     
     % plots
     figure;
     subplot(1,3,1)
     imshow(smoothed_image_x)
+    title('Derivative in X direction')
     subplot(1,3,2)
     imshow(smoothed_image_y)
+    title('Derivative in Y direction')
+    
     subplot(1,3,3)
-    imshow(I2b)
+    imshow(I2a)
     hold on;
     plot(c,r,'r.','MarkerSize',15)
-
+    title('original image with Corners')
 end
 
 % 3.2 - 3.3
 if (strcmp(test,'lucas'))
-%     test1 = 'syn';
-    test1 = 'sphere';
+    test1 = 'syn';
+%     test1 = 'sphere';
     if (strcmp(test1,'syn'))
         img1 = imread('../synth1.pgm');
         img2 = imread('../synth2.pgm');
@@ -51,8 +54,8 @@ if (strcmp(test,'lucas'))
     
     M = zeros(floor(size(img1,1)/region_size)*floor(size(img1,2)/region_size),2);
     
-    M_point_r = floor(region_size/2) +1 : region_size : size(img1,1);
-    M_point_c = floor(region_size/2) +1 : region_size : size(img1,2);
+    M_point_r = floor(region_size/2) +1 : region_size : size(img1,1)-1;% -1 because we dont want the last one index goes out f bound
+    M_point_c = floor(region_size/2) +1 : region_size : size(img1,2)-1;
     
     i = 1;
     for j = M_point_r
@@ -71,6 +74,8 @@ if (strcmp(test,'lucas'))
     imshow(img1);
     hold on
     quiver(M(:,2) , M(:,1), u' , v');
+    title('Syn with optical flow')
+
 
 end
 
