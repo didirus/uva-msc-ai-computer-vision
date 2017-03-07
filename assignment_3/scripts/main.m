@@ -112,7 +112,7 @@ if (strcmp(test,'tracking'))
         nr_images = 103;
         [~,r,c,~,~] = harris_corner_detector(imread('../person_toy/00000001.jpg'), sigma, kernel_size, threshold, window_size);
         %scale factor in y direction
-        S2 = 1.5;
+        S2 = 1.2;
     elseif strcmp(test1, 'pingpong')
         region_size = 15;
         sigma = 3;
@@ -158,8 +158,8 @@ if (strcmp(test,'tracking'))
         
 
         % Getting the corners based on previous opical flow
-        C(:,1) = int16(C(:,1)) + int16(  2.9 * v'); % 2.9
-        C(:,2) = int16(C(:,2)) + int16( 1.5 * u'); % 1.2,1.5
+        C(:,1) = int16(C(:,1)) + int16(  S1 * v'); % 2.9
+        C(:,2) = int16(C(:,2)) + int16( S2 * u'); % 1.2,1.5
         
     end
 end
