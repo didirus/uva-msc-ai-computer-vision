@@ -5,9 +5,6 @@ University of Amsterdam<br />
 
 ## Computer-Vision Lab Assignments
 Every assignment (except for as. 0) contains matlab files and a report
-
-### Assignment 0: Matlab tutorial (no files)
-
 ### Assignment 1:
 **Photometric Stereo**<br />
 Albedo, Integrability, Height-map, Surface-normals graph
