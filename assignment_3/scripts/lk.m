@@ -6,10 +6,10 @@ function [u, v] = lk(region_size, image1, image2, P)
         image2 = rgb2gray(image2);
     end
 
-    % Calculate derivates
-    Ix = conv2(double(image1), 0.25 * [-1 1; -1 1]) + conv2(double(image2), 0.25 * [-1 1; -1 1]);
-    Iy = conv2(double(image1), 0.25 * [-1 -1; 1 1]) + conv2(double(image2), 0.25 * [-1 -1; 1 1]);
-    It = conv2(double(image1), 0.25 * ones(2)) + conv2(double(image2), -0.25 * ones(2));
+    % Calculate derivates 
+    Ix = conv2(double(image1), 0.25 * [-1 1; -1 1]) + conv2(double(image2), 0.25 * [-1 1; -1 1]); %change in x direction for both images(add small %age tuning)
+    Iy = conv2(double(image1), 0.25 * [-1 -1; 1 1]) + conv2(double(image2), 0.25 * [-1 -1; 1 1]); % change in y direction(add small %age tuning)
+    It = conv2(double(image1), 0.25 * ones(2)) + conv2(double(image2), -0.25 * ones(2)); % change in t
 
     u = [];
     v = [];

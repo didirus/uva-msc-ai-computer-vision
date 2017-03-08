@@ -10,15 +10,15 @@
 % 2. for part 3.1 and 3.4 select either 'toy' or 'pingpong'
 % 3. for part 3.3 select either 'syn' and 'sphere'
 
-test = 'harris';
-% test = 'lucas';
+% test = 'harris';
+test = 'lucas';
 % test = 'tracking';
 
 image_1_4 = 'toy';
 % image_1_4 = 'pingpong';
 
-imgage_3 = 'syn';
-% imgage_3 = 'sphere';
+% imgage_3 = 'syn';
+imgage_3 = 'sphere';
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%% Global variables %%%%%%%%%
