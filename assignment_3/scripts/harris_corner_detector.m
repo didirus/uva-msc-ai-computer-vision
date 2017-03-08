@@ -3,6 +3,7 @@ function [H, r, c,smoothed_image_x,smoothed_image_y] = harris_corner_detector(im
     if size(image,3) > 1
         image = rgb2gray(image);
     end
+    
     % compute Ix
     gaussfilter_x = gauss(sigma, kernel_size);
     [smoothed_image_x, ~] = gaussDer(image, gaussfilter_x, sigma);
@@ -34,15 +35,15 @@ function [H, r, c,smoothed_image_x,smoothed_image_y] = harris_corner_detector(im
     rows = size(image, 1); % no. of rows in image
     cols = size(image, 2); % no. of cols in image
     
-    r = []; %zeros(rows, 1); r = [3, 3, 5, 6, 0 , 0 , 0, 0]
-    c = []; % zeros(cols, 1); c = [1, 2, 3 ,5]
+    r = [];
+    c = [];
 
     % centering
-
     r_center = (window_size-1)/2; 
     c_center = (window_size-1)/2;
     
-
+    % set sliding window over H
+    % if point in window has highest cornerness value and exceeds a threshold, then it's a corner
     for r_index = r_center+1:(rows-r_center)
         for c_index = c_center+1:(cols-c_center)
             window = H((r_index - r_center):(r_index + r_center), (c_index - c_center):(c_index + c_center));
@@ -53,8 +54,9 @@ function [H, r, c,smoothed_image_x,smoothed_image_y] = harris_corner_detector(im
         end
     end
     
-%tranpose to change it to column vector   
-r = r';
-c = c';
+    % tranpose to change it to column vector   
+    r = r';
+    c = c';
+
 end
 
