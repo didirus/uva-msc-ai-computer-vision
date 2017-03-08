@@ -1,3 +1,8 @@
+Tushar Nimbharkar & Diede Rusticus<br />
+Computer Vision '17<br />
+Artificial Intelligence Master<br />
+University of Amsterdam<br />
+
 ## Computer-Vision Lab Assignments
 Every assignment (except for as. 0) contains matlab files and a report
 
@@ -15,9 +20,5 @@ Gaussian Filters (1D, 2D, derivative), Gaussian vs Box filter, Histogram matchin
 <br />
 ### Assignment 3: 
 Harris Corner Detector, Optical flow, Lucas-Kanade, Tracking
-<br />
-<br />
-Tushar Nimbharkar & Diede Rusticus<br />
-Computer Vision '17<br />
-Artificial Intelligence Master<br />
-University of Amsterdam
+
+
