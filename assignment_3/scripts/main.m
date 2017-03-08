@@ -54,7 +54,7 @@ if (strcmp(test,'harris'))
     elseif(strcmp(image_1_4,'pingpong'))
     
         I = imread('../pingpong/0000.jpeg');
-        [H,r,c,smoothed_image_x,smoothed_image_y] = harris_corner_detector(I2a, sigma, kernel_size, threshold, window_size);
+        [H,r,c,smoothed_image_x,smoothed_image_y] = harris_corner_detector(I, sigma, kernel_size, threshold, window_size);
         
     end
 
@@ -119,9 +119,9 @@ if (strcmp(test,'lucas'))
     q.Color = 'red';
 
     % set titles
-    if (strcmp(test1,'syn'))
+    if (strcmp(imgage_3,'syn'))
         title('Synth with optical flow')
-    elseif(strcmp(test1,'sphere'))
+    elseif(strcmp(imgage_3,'sphere'))
         title('Sphere with optical flow')
     end
     
