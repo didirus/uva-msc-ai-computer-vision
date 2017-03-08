@@ -13,8 +13,8 @@ Convert an RGB-image into the (1) Opponent, (2) Normalized RGB, (3) HSV, (4) YCb
 ### Assignment 2:
 Gaussian Filters (1D, 2D, derivative), Gaussian vs Box filter, Histogram matching, Gradient magnitude and direction, Unsharp masking, Laplacian of Gaussian.
 <br />
-## Assignment 3: 
-Harris Corner Detector, Optical flow, Lucas-Kanada, Tracking
+### Assignment 3: 
+Harris Corner Detector, Optical flow, Lucas-Kanade, Tracking
 <br />
 <br />
 Tushar Nimbharkar & Diede Rusticus<br />
