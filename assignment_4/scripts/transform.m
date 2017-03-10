@@ -52,7 +52,7 @@ for i = 1:x_size
     
 end
 % 
-kernel_size = [51 51];
+kernel_size = [5 5];
 
 %now take 9 elements into consideration. 3*3
 kernel_r = kernel_size(1); %row
@@ -82,7 +82,7 @@ for r_index = r_dist+1:(rows_I-r_dist)
         end
     end
 end
-imshow(transformed_im,[])
+imshow(imOut,[])
 size(imOut)
 size(transformed_im)
 % imshow(imOut,[])
