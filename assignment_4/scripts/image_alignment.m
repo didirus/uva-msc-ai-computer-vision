@@ -56,9 +56,10 @@ function [parameters, set_of_inliers] = image_alignment( image1, image2, N, P )
         Euclid = sqrt(((x_transf - x_new).^ 2)+((y_transf - y_new).^ 2));
         
         if sum(Euclid<10) > max_inliers
+%             max_inliers
             max_inliers = sum(Euclid<10);
             I = find(Euclid < 10);
-            nr = size(I,2);
+%             nr = size(I,2); %??
             parameters = t;
             set_of_inliers = zeros(size(I,2),2);
             x_2 = x';
