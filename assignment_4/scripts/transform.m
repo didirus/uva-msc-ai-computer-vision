@@ -1,91 +1,71 @@
-function [transformed_im] = transform(image, m, t) % [transformed_im, shift]  add shift aswell?
-% estimate transformed image size by looking at how coners are tranformed
-shift = zeros(2,1);
+function [newimage] = transform(image, m, t) % [transformed_im, shift]  add shift aswell?
+    % estimate transformed image size by looking at how coners are tranformed
+    shift = zeros(2,1);
 
-%get height and width
-[H, W] = size(image);
+    %get height and width
+    [R, C] = size(image);
 
-%get the 4 corner points
-TL_corner = [1,1];
-TR_corner = [size(image,1),1];
-BL_corner = [1,size(image,2)];
-BR_corner = [size(image,1),size(image,2)];
+    %get the 4 corner points [c, r]
+    TL_corner = [1,1];
+    TR_corner = [size(image,2),1];
+    BL_corner = [1, size(image,1)];
+    BR_corner = [size(image,2),size(image,1)];
 
-%transform the corners based on transform paramenters
-TL_corner_transformed = m * TL_corner' + t;
-TR_corner_transformed = m * TR_corner' + t;
-BL_corner_transformed = m * BL_corner' + t;
-BR_corner_transformed = m * BR_corner' + t;
+    %transform the corners based on transform paramenters
+    TL_trans = m * TL_corner' + t;
+    TR_trans = m * TR_corner' + t;
+    BL_trans = m * BL_corner' + t;
+    BR_trans = m * BR_corner' + t;
 
-% x coords and y coords
-x_coords = [TL_corner_transformed(1),TR_corner_transformed(1),BL_corner_transformed(1),BR_corner_transformed(1)];
-y_coords = [TL_corner_transformed(2),TR_corner_transformed(2),BL_corner_transformed(2),BR_corner_transformed(2)];
-% to get height and width of transformed image
-x_size = round(max(x_coords)) - round(min(x_coords));
-y_size = round(max(y_coords)) - round(min(y_coords));
+    c_pos = [TL_trans(1),TR_trans(1),BL_trans(1),BR_trans(1)];
+    r_pos = [TL_trans(2),TR_trans(2),BL_trans(2),BR_trans(2)];
 
-% disp(x_coords)
-% disp(round(min(x_coords)))
-% disp(round(max(x_coords)))
-% disp('hello')
-% disp(round(min(y_coords)))
-% disp(round(max(y_coords)))
-% transformed_im = 0;
+    % to get height and width of transformed image
+    r_size = round(max(r_pos)) - round(min(r_pos));
+    c_size = round(max(c_pos)) - round(min(c_pos));
 
-
-shift = [round(min(x_coords-1));round(min(y_coords-1))];
-transformed_im = zeros(x_size,y_size);
-
-for i = 1:x_size
-    for j = 1:y_size
-        % right matrix division for transformation
-        inv = round(m \ [i;j] + shift -t );
-        if ((inv(1)>0) && (inv(1) <= H) && (inv(2) > 0) && (inv(2) <= W))
-%             disp('hello')
-            transformed_im(i,j) = image(inv(1),inv(2));
-        else
-            
-            %do nothing or leave them black
+    shift = [round(min(c_pos));round(min(r_pos))];
+    transformed_im = zeros(r_size,c_size);
+    
+    disp('size new imag')
+    disp(size(transformed_im))
+    disp('size shift')
+    disp(shift)
+    for c = 1:C
+        for r = 1:R
+            new_pos1 = m * [c;r] + t;
+            new_pos = new_pos1 - shift;
+            if round(new_pos(1)) > 0 && round(new_pos(2)) > 0
+                transformed_im(round(new_pos(2)), round(new_pos(1))) = image(r,c);
+            end
         end
-        
     end
     
-end
-% 
-kernel_size = [5 5];
+    kernel_size = [5 5];
 
-%now take 9 elements into consideration. 3*3
-kernel_r = kernel_size(1); %row
-kernel_c = kernel_size(2); %column
-rows_I = size(transformed_im, 1); %no. of rows in image
-cols_I = size(transformed_im, 2); %no. of cols in image
+    %now take 9 elements into consideration. 3*3
+    kernel_r = kernel_size(1); %row
+    kernel_c = kernel_size(2); %column
+    rows_I = size(transformed_im, 1); %no. of rows in image
+    cols_I = size(transformed_im, 2); %no. of cols in image
 
-imOut = zeros([rows_I, cols_I], 'uint8');
-centre = (kernel_size(1) +1)/2;
-%centering
-r_dist = (kernel_r-1)/2;
-c_dist = (kernel_c-1)/2;
-%slide the window over the image
-% take mean or median accordingly
+    imOut = zeros(rows_I, cols_I);
+    centre = (kernel_size(1) +1)/2;
+    %centering
+    r_dist = (kernel_r-1)/2;
+    c_dist = (kernel_c-1)/2;
+    %slide the window over the image
+    % take mean or median accordingly
 
-for r_index = r_dist+1:(rows_I-r_dist)
-    for c_index = c_dist+1:(cols_I-c_dist)
-        
-        subM = transformed_im((r_index - r_dist):(r_index + r_dist), (c_index - c_dist):(c_index + c_dist));
-        if (subM(centre,centre) == 0)
-            temp = mean(subM(:));
-            disp(temp)
-            imOut(r_index, c_index) = temp ; %median filter
-%             disp('hello')
-        else
-            %do nothing again
+    for r_index = r_dist+1:(rows_I-r_dist)
+        for c_index = c_dist+1:(cols_I-c_dist)
+
+            subM = transformed_im((r_index - r_dist):(r_index + r_dist), (c_index - c_dist):(c_index + c_dist));
+            if (subM(centre,centre) == 0)
+                temp = mean(subM(:));
+                imOut(r_index, c_index) = temp ; %median filter
+            end
         end
     end
-end
-imshow(imOut,[])
-size(imOut)
-size(transformed_im)
-% imshow(imOut,[])
-newimage = double(imOut) + double(transformed_im);
-% imshow(newimage,[])
+    newimage = double(imOut) + double(transformed_im);
 end
