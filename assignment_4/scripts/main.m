@@ -8,8 +8,8 @@ close all
 
 %%%%%%%%% Select assignment and image by uncommenting the line %%%%%%%%%
 
-test = 'image_alignment';
-% test = 'image_stitching';
+% test = 'image_alignment';
+test = 'image_stitching';
 
 %%%%%%%%% 3.1 Image Alignment %%%%%%%%%
 
@@ -58,4 +58,15 @@ if (strcmp(test,'image_alignment'))
 %     subplot(2,2,4);
 %     imshow(newImage,[]);
 %     title('Built in matlab function');
+end
+
+if (strcmp(test,'image_stitching'))
+    im2 = imread('../right.jpg');
+    im1 = imread('../left.jpg');
+    [trans_params, ~,~,~,~,~] = image_alignment(im2, im1, 1000, 50);
+    [imout] = panorama(im1,im2,trans_params);
+    %plot the image
+    imshow(imout,[])
+    
+    
 end
