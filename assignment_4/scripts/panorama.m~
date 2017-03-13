@@ -115,6 +115,8 @@ imOut = max(padedI1,padedtransform);
 
 
 imshow(uint8(imOut));
+    
+   
 
 end
 
