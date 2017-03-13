@@ -110,11 +110,13 @@ end
 padedI1 = padarray(newI1,[padI1x,padI1y],0,'post');
 padedtransform = padarray(newtransformed,[padTx,padTy],0,'post');
 % imOut = zeros(size(padedtransform));
-% imOut =  (padedI1/2 + padedtransform/2);
-imOut = max(padedI1,padedtransform);
+imOut =  (padedI1/2 + padedtransform/2);
+% imOut =  (padedI1+ padedtransform);
 
+% imOut = max(padedI1,padedtransform);
 
-imshow(uint8(imOut));
+imOut =double(imOut);
+% imshow(uint8(imOut));
 
 end
 
