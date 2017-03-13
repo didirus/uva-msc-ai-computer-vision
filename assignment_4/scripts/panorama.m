@@ -78,9 +78,9 @@ end
 padedI1 = padarray(newI1,[padI1x,padI1y],0,'post');
 padedtransform = padarray(newtransformed,[padTx,padTy],0,'post');
 %method 1
-imOut =  (padedI1/2 + padedtransform/2);
+% imOut =  (padedI1/2 + padedtransform/2);
 
 %method 2
-% imOut = max(padedI1,padedtransform);
+imOut = max(padedI1,padedtransform);
 end
 
