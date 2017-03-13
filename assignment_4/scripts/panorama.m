@@ -17,8 +17,8 @@ corners = [1 1 1 ;
 % transforming the corners
 t_corners = corners * parameter;
 % extract the end points
-LC = min(t_corners(:, 1));
-TC = min(t_corners(:, 2));
+LC = min(t_corners(:, 1)); %x-direction
+TC = min(t_corners(:, 2)); %y-direction
 %only need left corner and top corner
 
 
