@@ -27,10 +27,7 @@ function [newimage] = transform(image, m, t) % [transformed_im, shift]  add shif
     shift = [round(min(c_pos));round(min(r_pos))];
     transformed_im = zeros(r_size,c_size);
     
-    disp('size new imag')
-    disp(size(transformed_im))
-    disp('size shift')
-    disp(shift)
+
     for c = 1:C
         for r = 1:R
             new_pos1 = m * [c;r] + t;
@@ -41,14 +38,14 @@ function [newimage] = transform(image, m, t) % [transformed_im, shift]  add shif
         end
     end
     
-    kernel_size = [5 5];
+    kernel_size = [3 3];
 
     %now take 9 elements into consideration. 3*3
     kernel_r = kernel_size(1); %row
     kernel_c = kernel_size(2); %column
     rows_I = size(transformed_im, 1); %no. of rows in image
     cols_I = size(transformed_im, 2); %no. of cols in image
-
+% 
     imOut = zeros(rows_I, cols_I);
     centre = (kernel_size(1) +1)/2;
     %centering
@@ -62,7 +59,7 @@ function [newimage] = transform(image, m, t) % [transformed_im, shift]  add shif
 
             subM = transformed_im((r_index - r_dist):(r_index + r_dist), (c_index - c_dist):(c_index + c_dist));
             if (subM(centre,centre) == 0)
-                temp = mean(subM(:));
+                temp = mean(nonzeros(subM));
                 imOut(r_index, c_index) = temp ; %median filter
             end
         end
