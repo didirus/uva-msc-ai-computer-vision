@@ -56,6 +56,7 @@ if (strcmp(test,'image_alignment'))
     imshow(im2);
     title('Goal rotation');
 end
+
 if (strcmp(test,'image_stitching'))
     im2 = imread('../right.jpg');
     im1 = imread('../left.jpg');
