@@ -71,8 +71,6 @@ function [parameters, inliers, x_rand, x_tf_rand, y_rand, y_tf_rand] = image_ali
 
         if sum(Euclid<10) > max_inliers
             max_inliers = sum(Euclid<10);
-            disp(i)
-            disp(max_inliers)
             I = find(Euclid < 10);
             parameters = t;
             winning_matches = random_indices;

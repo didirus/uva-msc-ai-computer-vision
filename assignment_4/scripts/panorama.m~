@@ -1,4 +1,4 @@
-function [stitch_divided, stitch_maximum] = panorama(im1, im2, parameters)
+function [imOut] = panorama(im1, im2, parameters)
     
     % Putting the parameters in a 3x3 matrix
     parameters =    [parameters(1) parameters(3) 0;
@@ -80,11 +80,9 @@ function [stitch_divided, stitch_maximum] = panorama(im1, im2, parameters)
     
     % One method could be to divide every pixel by 2. However, this results
     % in darker non-overlapping parts
-    stitch_divided =  (left_padded/2 + right_padded/2);
+    imOut =  (padedI1/2 + padedtransform/2);
 
-    % The other method is to get the maximum value. So the pixels 
-    % in the overlapping area will be based either on the left image or on
-    % the right image
-    stitch_maximum = max(left_padded,right_padded);
+    %method 2
+    imOut = max(left_padded,right_padded);
 end
 
