@@ -60,20 +60,9 @@ if (strcmp(test,'image_stitching'))
     im2 = imread('../right.jpg');
     im1 = imread('../left.jpg');
     [trans_params, ~,~,~,~,~] = image_alignment(im2, im1, 1000, 50);
-    im1 = rgb2gray(im1);
-    im2=rgb2gray(im2);
-    
-%     for i=1:1
-%     [imout1] = panorama(im1(:,:,1),im2(:,:,1),trans_params);
-%     [imout2] = panorama(im1(:,:,2),im2(:,:,2),trans_params);
-%     [imout3] = panorama(im1(:,:,3),im2(:,:,3),trans_params);
-%     end
-%     imOut = zeros(size(imout1,1),size(imout1,2),3);
-%     imOut(:,:,1) = imout1;
-%     imOut(:,:,2) = imout2;
-%     imOut(:,:,3) = imout3;
     [imout] = panorama(im1,im2,trans_params);
+    %plot the image
     imshow(imout,[])
-    clear
+    
     
 end
