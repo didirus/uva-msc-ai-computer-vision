@@ -51,11 +51,10 @@ Classes = {'airplanes_train','cars_train','faces_train','motorbikes_train'};
 for i=1:length(Classes)
 %     disp(Classes(i))
     filename = strcat('../Caltech4/subdata/', string(Classes(i)), '/' );
-%     disp(filename)
+    disp(filename)
     for j =1:5
-        imagename = strcat(filename,num2str(j,'%.3d'),'.jpg');
+        imagename = strcat(filename,num2str(ii,'%d'),'.jpg');
 %         I = imread()
-        I = imread(imagename);
         disp(imagename);
         
     end
