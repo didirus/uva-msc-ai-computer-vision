@@ -25,6 +25,8 @@ if (strcmp(test,'feature_extraction'))
     % Get the cluster centres
     [Centre] = Kmeans_cluster(single(D),Vocab_size,N_iter);
     
+    % TODO: 2.3 Map sift with kmeans clusters
+    
 end
 
 if (strcmp(test,'image_stitching'))
