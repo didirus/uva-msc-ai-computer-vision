@@ -16,11 +16,15 @@ test = 'feature_extraction';
 if (strcmp(test,'feature_extraction'))
     
     D = feature_extraction();
-    %Doing Kmeans
-    [idx,Centre] = kmeans(single(D),400);
     
-
-
+    % Doing Kmeans
+    % Change the VOcabulary size and Number of iteration as needed
+    Vocab_size=400;
+    N_iter = 1000;
+    
+    % Get the cluster centres
+    [Centre] = Kmeans_cluster(single(D),Vocab_size,N_iter);
+    
 end
 
 if (strcmp(test,'image_stitching'))
