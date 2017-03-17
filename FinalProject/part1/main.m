@@ -16,6 +16,9 @@ test = 'feature_extraction';
 if (strcmp(test,'feature_extraction'))
     
     D = feature_extraction();
+    %Doing Kmeans
+    [idx,Centre] = kmeans(single(D),400);
+    
 
 
 end
