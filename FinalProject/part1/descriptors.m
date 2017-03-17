@@ -11,6 +11,9 @@ if strcmp(type,'dense')
     [f, d] = vl_dsift(Is, 'size', binSize) ;
     f(3,:) = binSize/magnif ;
     f(4,:) = 0 ;
+    [f_, d_] = vl_sift(I, 'frames', f);
+    f = f_;
+    d= d_;
     
     
     
@@ -20,10 +23,8 @@ if strcmp(type,'normal')
     if size(I,3) >1
         I = rgb2gray(I);
     end
-    [f1,~] = descriptors(I,'dense');
-    [f_, d_] = vl_sift(I, 'frames', f1);
-    f = f_;
-    d= d_;
+    
+    [f, d] = vl_sift(I);
 end
 
 

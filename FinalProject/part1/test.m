@@ -43,6 +43,18 @@
 %     TODO: loop over images and concat the descriptors. then do the
 %     kmeans.
     
-    [~,d] = descriptors(I,'normal');
+%     [~,d] = descriptors(I,'normal');
 %     [a,b] = kmeans(single(d),400);
+
+Classes = {'airplanes_train','cars_train','faces_train','motorbikes_train'};
+
+for i=1:length(Classes)
+%     disp(Classes(i))
+    filename = strcat('../Caltech4/subdata/', string(Classes(i)), '/' );
+    disp(filename)
+    for j =1:5
+        
+    end
+end
+
 
