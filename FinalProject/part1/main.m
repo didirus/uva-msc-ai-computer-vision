@@ -27,6 +27,7 @@ if (strcmp(test,'feature_extraction'))
     
     % TODO: 2.3 Map sift with kmeans clusters
     
+    
 end
 
 if (strcmp(test,'image_stitching'))
