@@ -1,4 +1,4 @@
-function [ X ] = get_test_data(vocab_size, descr_type, centers)
+function [ X ] = get_test_data(imageset, vocab_size, descr_type, centers)
     % To classify a new image, you should calculate its visual 
     % words histogram as described in Section 2.4 and use the 
     % trained support vector machine classifier to assign it to 
@@ -9,8 +9,8 @@ function [ X ] = get_test_data(vocab_size, descr_type, centers)
     X = zeros(200, vocab_size); % features frequencies
     
     for i=1:length(classes)
-        filename = char(strcat('../Caltech4/ImageData/', classes(i), '/' ));
-        for j =1:50
+        filename = char(strcat(imageset, classes(i), '/' ));
+        for j =1:50 % always
             imagename = strcat(filename,'img',num2str(j,'%.3d'),'.jpg');
             I = imread(imagename);
             
@@ -21,6 +21,7 @@ function [ X ] = get_test_data(vocab_size, descr_type, centers)
             freqs = quantize(centers, d, vocab_size);
             freqs = freqs';
             X(ind,:) = freqs;
+            ind = ind + 1;
         end
     end
 end

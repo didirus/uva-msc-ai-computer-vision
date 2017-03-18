@@ -1,4 +1,4 @@
-function [ X,Y ] = get_features_and_labels(class, vocab_size, centers, descr_type)
+function [ X,Y ] = get_features_and_labels(imageset, class, vocab_size, centers, descr_type)
     
     % Define the 4 classes
     classes = {'airplanes_train','motorbikes_train','faces_train','cars_train'};
@@ -11,8 +11,8 @@ function [ X,Y ] = get_features_and_labels(class, vocab_size, centers, descr_typ
     % Repeat for each class
     ind = 1;
     for i=1:length(classes)
-        filename = char(strcat('../Caltech4/ImageData/', classes(i), '/' ));
-        for j = 101:200
+        filename = char(strcat(imageset, classes(i), '/' ));
+        for j = 101:200 % should be based on "feature_extraction" setup
             imagename = strcat(filename,'img',num2str(j,'%.3d'),'.jpg');
             I = imread(imagename);
             
