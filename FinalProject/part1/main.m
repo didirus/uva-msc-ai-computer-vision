@@ -3,6 +3,10 @@
 % Artificial Intelligence Master
 % University of Amsterdam
 
+
+
+% TODO: MAP and check fitting model
+
 % Change the vocabulary size and number of iteration as needed
 vocab_size = 400; % (800, 1600, 2000 and 4000)
 N = 100;
@@ -14,7 +18,7 @@ nr_images = 200;
 
 % 2.1 Feature Extraction and Description
 disp('feature extraction..')
-if exist('objects/D.mat', 'file') ~= 2
+if exist(strcat('objects/D_', descr_type, '.mat'), 'file') ~= 2
     D = feature_extraction(folder, descr_type);
     filename = strcat('objects/D_', descr_type);
     save(filename, 'D');
@@ -35,12 +39,12 @@ end
 
 % 2.3 & 2.4 & 2.5 Quantization and Classification %%%%%%%
 for i=1:length(classes)
-    disp('training..')
     if exist(strcat('objects/model_',char(classes(i)),'_',num2str(vocab_size),'_',descr_type,'.mat'), 'file') ~= 2
+        disp('training..')
         train_svm(classes(i), vocab_size, centers, descr_type)
     end
-    disp('getting models..')
     if exist(strcat('model_', char(classes(i))), 'var') ~= 1 && exist(strcat('objects/model_',char(classes(i)),'_',num2str(vocab_size),'_',descr_type,'.mat'), 'file') == 2
+        disp('getting models..')
         load(strcat('model_', char(classes(i)),'_', num2str(vocab_size), '_', descr_type));
         if i == 1
             model_airplanes_train = model;
@@ -74,10 +78,10 @@ scores_faces(:,1) = 1:nr_images;
 scores_cars(:,1) = 1:nr_images;
 
 % Get class scores of test data according to every class model
-[~, s_a] = predict(model_airplanes_train,test_data);
-[~, s_m] = predict(model_motorbikes_train,test_data);
-[~, s_f] = predict(model_faces_train,test_data);
-[~, s_c] = predict(model_cars_train,test_data);
+[l_a, s_a, ~] = predict(model_airplanes_train,test_data);
+[l_m, s_m, ~] = predict(model_motorbikes_train,test_data);
+[l_f, s_f, ~] = predict(model_faces_train,test_data);
+[l_c, s_c, ~] = predict(model_cars_train,test_data);
 
 % Get the second column of the scores matrix because it represents the
 % scores for the relevant class
