@@ -5,13 +5,14 @@ function [ X,Y ] = get_features_and_labels(class, vocab_size, centers, descr_typ
     
     % For every image, get the descriptors, do quantization
     D = [];
-    Y = zeros(20,1); % labels
-    X = zeros(20, vocab_size); % features frequencies
+    Y = zeros(400,1); % labels
+    X = zeros(400, vocab_size); % features frequencies
+    
     % Repeat for each class
     ind = 1;
     for i=1:length(classes)
-        filename = char(strcat('../Caltech4/subdata/', classes(i), '/' ));
-        for j =6:10
+        filename = char(strcat('../Caltech4/ImageData/', classes(i), '/' ));
+        for j = 101:200
             imagename = strcat(filename,'img',num2str(j,'%.3d'),'.jpg');
             I = imread(imagename);
             

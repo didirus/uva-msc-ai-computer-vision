@@ -6,8 +6,8 @@ function [ D ] = feature_extraction(descr_type)
     % For every image, get the descriptors with keypoint sampling
     D = [];
     for i=1:length(Classes)
-        filename = char(strcat('../Caltech4/subdata/', Classes(i), '/' ));
-        for j =1:5
+        filename = char(strcat('../Caltech4/ImageData/', Classes(i), '/' ));
+        for j = 1:100
             imagename = strcat(filename,'img',num2str(j,'%.3d'),'.jpg');
             I = imread(imagename);
             [~, d] = descriptors(I, descr_type);
