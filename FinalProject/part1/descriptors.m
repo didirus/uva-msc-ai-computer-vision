@@ -1,5 +1,5 @@
 function [ f , d ] = descriptors(I, type)
-    % Type = Dense, Key-point, RGBsift, rgbsift, Oppsift 
+    % Type = 'dense', 'keypoints', 'RGBsift', 'rgbsift', 'Oppsift' 
     
     % Dense SIFT
     binSize = 8 ;
@@ -31,7 +31,7 @@ function [ f , d ] = descriptors(I, type)
     end
     
     % Point SIFT
-    if strcmp(type,'normal')
+    if strcmp(type,'keypoints')
         
         % Convert to grayscale
         if size(I,3) >1
