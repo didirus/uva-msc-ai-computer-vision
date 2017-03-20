@@ -1,12 +1,13 @@
-function [v_frequency] = quantize(visual_dictionary, descriptor, vocabulary_size)
+function [v_frequency] = quantize(visual_dictionary, descriptors, vocabulary_size)
     
     %%%%%%% 2.3 %%%%%%%
     
     % Init frequency with zeros
-    v_frequency = zeros([vocabulary_size 1]);
+    v_frequency = zeros(vocabulary_size, 1);
     
     % Pairwise distance between two sets of observations
-    min_dist = pdist2(double(visual_dictionary), double(descriptor'));
+    % visual_dict and descriptors must have same nr of columns
+    min_dist = pdist2(double(visual_dictionary), double(descriptors'));
     
     % Find Index for min distance
     [~ , index] = min(min_dist);
@@ -19,6 +20,8 @@ function [v_frequency] = quantize(visual_dictionary, descriptor, vocabulary_size
         v_frequency(i) = sum(index==i);
     end
 
+    v_frequency = double(v_frequency);
+    
     % Normalize frequencies
     v_frequency = v_frequency ./ sum(v_frequency);
 end

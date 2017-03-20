@@ -7,7 +7,7 @@ function [ D ] = feature_extraction(imageset, descr_type)
     D = [];
     for i=1:length(Classes)
         filename = char(strcat(imageset, Classes(i), '/' ));
-        for j = 1:100 % subdata = 1:5, for imagedata should >= 100
+        for j = 1:250 % subdata = 1:5, for imagedata should >= 100
             imagename = strcat(filename,'img',num2str(j,'%.3d'),'.jpg');
             I = imread(imagename);
             [~, d] = descriptors(I, descr_type);

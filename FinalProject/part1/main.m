@@ -4,12 +4,11 @@
 % University of Amsterdam
 
 
-
 % TODO: MAP and check fitting model
 
 % Change the vocabulary size and number of iteration as needed
 vocab_size = 400; % (800, 1600, 2000 and 4000)
-N = 100;
+N = 500;
 descr_type = 'keypoints'; % 'dense', 'keypoints', 'RGBsift', 'rgbsift', 'Oppsift' 
 classes = {'airplanes_train','motorbikes_train','faces_train','cars_train'};  
 
@@ -19,6 +18,7 @@ nr_images = 200;
 % 2.1 Feature Extraction and Description
 disp('feature extraction..')
 if exist(strcat('objects/D_', descr_type, '.mat'), 'file') ~= 2
+    disp('no D file yet, so making now..')
     D = feature_extraction(folder, descr_type);
     filename = strcat('objects/D_', descr_type);
     save(filename, 'D');
@@ -30,6 +30,7 @@ end
 % 2.2: K-means: get cluster means
 disp('k-means..')
 if exist(strcat('objects/centers_',num2str(vocab_size),'.mat'), 'file') ~= 2
+    disp('no cluster centers yet, so making now..')
     [~,centers] = kmeans(single(D),vocab_size,'MaxIter',N);
     filename = strcat('objects/centers_', num2str(vocab_size));
     save(filename, 'centers');
@@ -39,10 +40,10 @@ end
 
 % 2.3 & 2.4 & 2.5 Quantization and Classification %%%%%%%
 for i=1:length(classes)
-    if exist(strcat('objects/model_',char(classes(i)),'_',num2str(vocab_size),'_',descr_type,'.mat'), 'file') ~= 2
-        disp('training..')
-        train_svm(classes(i), vocab_size, centers, descr_type)
-    end
+%     if exist(strcat('objects/model_',char(classes(i)),'_',num2str(vocab_size),'_',descr_type,'.mat'), 'file') ~= 2
+    disp(strcat('no ', char(classes(i)), ' model yet, so making now..'))
+    [X] = train_svm(folder, classes(i), vocab_size, centers, descr_type);
+%     end
     if exist(strcat('model_', char(classes(i))), 'var') ~= 1 && exist(strcat('objects/model_',char(classes(i)),'_',num2str(vocab_size),'_',descr_type,'.mat'), 'file') == 2
         disp('getting models..')
         load(strcat('model_', char(classes(i)),'_', num2str(vocab_size), '_', descr_type));
@@ -59,10 +60,13 @@ for i=1:length(classes)
 end
 
 disp('get test data..')
-% test_data = get_test_data(folder, vocab_size, descr_type, centers);
-% filename = strcat('objects/test_data_', num2str(vocab_size), '_', descr_type);
-% save(filename, 'test_data');
-load(strcat('objects/test_data_', num2str(vocab_size), '_', descr_type, '.mat'));
+if exist(strcat('test_data_',vocab_size, '_', descr_type,'.mat'), 'file') ~= 2
+    test_data = get_test_data(folder, vocab_size, descr_type, centers);
+    filename = strcat('objects/test_data_', num2str(vocab_size), '_', descr_type);
+    save(filename, 'test_data');
+elseif exist('test_data', 'var') ~= 1 && exist(strcat('test_data_',vocab_size, '_', descr_type,'.mat'), 'file') == 2
+    load(strcat('objects/test_data_', num2str(vocab_size), '_', descr_type, '.mat'));
+end
 
 disp('get class scores..')
 % Initialise scores matrices for every class
