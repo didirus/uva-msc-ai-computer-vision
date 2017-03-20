@@ -17,7 +17,7 @@ function [v_frequency] = quantize(visual_dictionary, descriptors, vocabulary_siz
     % Loop over the vocabulary size
     % and put the sum at that index into frequency (position)
     for i=1:vocabulary_size
-        v_frequency(i) = sum(index==i);
+        v_frequency(i) = sum(index == i);
     end
 
     v_frequency = double(v_frequency);
