@@ -2,7 +2,7 @@ function [ X, Y ] = get_features_and_labels(imageset, class, vocab_size, centers
     
     % Define the 4 classes
     classes = {'airplanes_train','motorbikes_train','faces_train','cars_train'};
-    images_per_class = 100;
+    images_per_class = 149;
     row_dims = images_per_class * length(classes);
     
     % For every image, get the descriptors, do quantization

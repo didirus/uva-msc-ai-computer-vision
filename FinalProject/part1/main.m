@@ -8,7 +8,7 @@
 
 % Change the vocabulary size and number of iteration as needed
 vocab_size = 400; % (800, 1600, 2000 and 4000)
-N = 500;
+N = 700;
 descr_type = 'keypoints'; % 'dense', 'keypoints', 'RGBsift', 'rgbsift', 'Oppsift' 
 classes = {'airplanes_train','motorbikes_train','faces_train','cars_train'};  
 

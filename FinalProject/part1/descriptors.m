@@ -49,6 +49,18 @@ function [ f , d ] = descriptors(I, type)
     % rgb SIFT
     if strcmp(type,'rgbSIFT')
 
+        r = I(:,:,1);
+        g = I(:,:,2);
+        b = I(:,:,3);
+        sumrgb = r + g + b;
+        r = double(r) ./ double(sumrgb);
+        g = double(g) ./ double(sumrgb);
+        b = double(b) ./ double(sumrgb);
+        [a1,b1] = size(r)
+        normImage = zeros()
+
+
+
     end
 
     % Opponent SIFT
