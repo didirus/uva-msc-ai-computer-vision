@@ -58,7 +58,6 @@ for i=1:length(classes)
     end
 end
 
-<<<<<<< HEAD
 disp('test data..')
 
 classesids = zeros(nr_images, 1);

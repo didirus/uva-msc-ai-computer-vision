@@ -52,12 +52,18 @@ function [ f , d ] = descriptors(I, type)
         r = I(:,:,1);
         g = I(:,:,2);
         b = I(:,:,3);
+        [a1,b1] = size(r)
         sumrgb = r + g + b;
         r = double(r) ./ double(sumrgb);
         g = double(g) ./ double(sumrgb);
         b = double(b) ./ double(sumrgb);
-        [a1,b1] = size(r)
-        normImage = zeros()
+        
+        normImage = zeros(a1, b1, 3 );
+
+        normImage(:,:,1) = r ;
+        normImage(:,:,2) = g ;
+        normImage(:,:,3) = b ;
+        [f , d] = descriptors(single(normImage),'RGBSIFT');
 
 
 
