@@ -39,8 +39,9 @@ end
 
 % 2.3 & 2.4 & 2.5 Quantization and Classification %%%%%%%
 disp('check for trained models and assign..')
+
 for i=1:length(classes)
-    if exist(strcat('objects/model_',char(classes(i)),'_',num2str(vocab_size),'_',descr_type,'.mat'), 'file') ~= 2
+    if exist(strcat('objects/model_',char(classes(i)),'_',num2str(vocab_size),'_',descr_type,'.mat'), 'file') == 2
         disp(strcat(char(classes(i)), ' model not created yet, so making now..'))
         [model, X_train] = train_svm(folder, classes(i), vocab_size, centers, descr_type);
     end
@@ -66,10 +67,11 @@ classesids(51:100,:) = 2;
 classesids(101:150,:) = 3;
 classesids(151:200,:) = 4;
 
-rank_airplanes = test_data(folder, vocab_size, centers, descr_type, classesids, model_airplanes);
-rank_motorbikes = test_data(folder, vocab_size, centers, descr_type, classesids, model_motorbikes);
-rank_faces = test_data(folder, vocab_size, centers, descr_type, classesids, model_faces);
-rank_cars = test_data(folder, vocab_size, centers, descr_type, classesids, model_cars);
+X_test = get_features(folder, vocab_size, centers, descr_type, 'test');
+rank_airplanes = test_data(X_test, classesids, model_airplanes);
+rank_motorbikes = test_data(X_test, classesids, model_motorbikes);
+rank_faces = test_data(X_test, classesids, model_faces);
+rank_cars = test_data(X_test, classesids, model_cars);
 
 disp('calculating average precisions:')
 

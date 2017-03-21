@@ -20,7 +20,7 @@ function [ X ] = get_features(imageset, vocab_size, centers, descr_type, set)
     % Repeat for each class
     ind = 1;
     for i=1:length(classes)
-        filename = char(strcat(imageset, classes(i), dir_name, '/' ));
+        filename = char(strcat(imageset, classes(i), dir_name, '/'));
         for j = start_im_ind : start_im_ind+images_per_class-1 
             imagename = strcat(filename,'img',num2str(j,'%.3d'),'.jpg');
             I = imread(imagename);
