@@ -41,4 +41,3 @@ function [ X ] = get_features(imageset, vocab_size, centers, descr_type, set)
         end
     end
 end
-

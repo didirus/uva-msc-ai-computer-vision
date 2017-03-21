@@ -8,7 +8,7 @@
 
 % Change the vocabulary size and number of iteration as needed
 vocab_size = 400; % (800, 1600, 2000 and 4000)
-N = 500;
+N = 700;
 descr_type = 'keypoints'; % 'dense', 'keypoints', 'RGBsift', 'rgbsift', 'Oppsift' 
 classes = {'airplanes','motorbikes','faces','cars'};  
 folder = '../Caltech4/ImageData/';
@@ -44,8 +44,8 @@ for i=1:length(classes)
         disp(strcat(char(classes(i)), ' model not created yet, so making now..'))
         [model, X_train] = train_svm(folder, classes(i), vocab_size, centers, descr_type);
     end
-    if exist(strcat('objects/model_',char(classes(i)),'_',num2str(vocab_size),'_',descr_type,'.mat'), 'file') == 2
-        load(strcat('objects/model_', char(classes(i)),'_', num2str(vocab_size), '_', descr_type), 'model');
+    if exist(strcat('objects/model_',char(classes(i)),'_',num2str(vocab_size),'_',descr_type,'.mat'), 'file') == 2 
+        load(strcat('objects/model_', char(classes(i)),'_', num2str(vocab_size), '_', descr_type));
         if i == 1
             model_airplanes = model;
         elseif i == 2
@@ -58,6 +58,7 @@ for i=1:length(classes)
     end
 end
 
+<<<<<<< HEAD
 disp('test data..')
 
 classesids = zeros(nr_images, 1);
@@ -96,5 +97,3 @@ disp(APs);
 disp(strcat('MAP: ',num2str(MAP))); 
 
 disp('done!')
-
-
