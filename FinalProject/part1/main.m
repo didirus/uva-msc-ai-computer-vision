@@ -10,8 +10,7 @@
 vocab_size = 400; % (800, 1600, 2000 and 4000)
 N = 500;
 descr_type = 'keypoints'; % 'dense', 'keypoints', 'RGBsift', 'rgbsift', 'Oppsift' 
-classes = {'airplanes_train','motorbikes_train','faces_train','cars_train'};  
-
+classes = {'airplanes','motorbikes','faces','cars'};  
 folder = '../Caltech4/ImageData/';
 nr_images = 200;
 
@@ -43,72 +42,34 @@ disp('check for trained models and assign..')
 for i=1:length(classes)
     if exist(strcat('objects/model_',char(classes(i)),'_',num2str(vocab_size),'_',descr_type,'.mat'), 'file') ~= 2
         disp(strcat(char(classes(i)), ' model not created yet, so making now..'))
-        train_svm(folder, classes(i), vocab_size, centers, descr_type);
+        [model, X_train] = train_svm(folder, classes(i), vocab_size, centers, descr_type);
     end
     if exist(strcat('objects/model_',char(classes(i)),'_',num2str(vocab_size),'_',descr_type,'.mat'), 'file') == 2
-        
-        load(strcat('model_', char(classes(i)),'_', num2str(vocab_size), '_', descr_type));
+        load(strcat('objects/model_', char(classes(i)),'_', num2str(vocab_size), '_', descr_type), 'model');
         if i == 1
-            model_airplanes_train = model;
+            model_airplanes = model;
         elseif i == 2
-            model_motorbikes_train = model;
+            model_motorbikes = model;
         elseif i == 3 
-            model_faces_train = model;
+            model_faces = model;
         elseif i == 4
-            model_cars_train = model;
+            model_cars = model;
         end
     end
 end
 
-disp('get test data..')
-if exist(strcat('X_test_',num2str(vocab_size), '_', descr_type,'.mat'), 'file') ~= 2
-    [X_test, Y_a, Y_m, Y_f, Y_c] = get_test_data(folder, vocab_size, descr_type, centers);
-    filename = strcat('objects/X_test_', num2str(vocab_size), '_', descr_type);
-    save(filename, 'X_test');
-elseif exist('X_test', 'var') ~= 1 && exist(strcat('X_test',num2str(vocab_size), '_', descr_type,'.mat'), 'file') == 2
-    load(strcat('objects/X_test_', num2str(vocab_size), '_', descr_type, '.mat'));
-end
+disp('test data..')
 
-disp('get class scores..')
-
-% Initialise scores matrices for every class
-scores_airplanes = zeros(nr_images,2);
-scores_motorbikes = zeros(nr_images,2);
-scores_faces = zeros(nr_images,2);
-scores_cars = zeros(nr_images,2);
-
-% Keep track of image index by filling the first collumns with index nrs
-% 1:50 = airplanes, 51:100 = motorbikes, 101:150 = faces, 151:200 = cars
 classesids = zeros(nr_images, 1);
 classesids(1:50,:) = 1;
 classesids(51:100,:) = 2;
 classesids(101:150,:) = 3;
 classesids(151:200,:) = 4;
 
-scores_airplanes(:,1) = classesids;
-scores_motorbikes(:,1) = classesids;
-scores_faces(:,1) = classesids;
-scores_cars(:,1) = classesids;
-
-% Get class scores of test data according to every class model
-[l_a, accuracy_a, d_p_a] = predict(Y_a, sparse(X_test), model_airplanes_train);
-[l_m, accuracy_m, d_p_m] = predict(Y_m, sparse(X_test), model_motorbikes_train);
-[l_f, accuracy_f, d_p_f] = predict(Y_f, sparse(X_test), model_faces_train);
-[l_c, accuracy_c, d_p_c] = predict(Y_c, sparse(X_test), model_cars_train);
-
-% Get the second column of the scores matrix because it represents the
-% scores for the relevant class
-scores_airplanes(:,2) = d_p_a;
-scores_motorbikes(:,2) = d_p_m;
-scores_faces(:,2) = d_p_f;
-scores_cars(:,2) = d_p_c;
-
-% Order the score matrices to get a ranking
-disp('getting the ranked list..');
-rank_airplanes = flipud(sortrows(scores_airplanes,2));
-rank_motorbikes = flipud(sortrows(scores_motorbikes,2));
-rank_faces = flipud(sortrows(scores_faces,2));
-rank_cars = flipud(sortrows(scores_cars,2));
+rank_airplanes = test_data(folder, vocab_size, centers, descr_type, classesids, model_airplanes);
+rank_motorbikes = test_data(folder, vocab_size, centers, descr_type, classesids, model_motorbikes);
+rank_faces = test_data(folder, vocab_size, centers, descr_type, classesids, model_faces);
+rank_cars = test_data(folder, vocab_size, centers, descr_type, classesids, model_cars);
 
 disp('calculating average precisions:')
 

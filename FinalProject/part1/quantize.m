@@ -23,5 +23,5 @@ function [v_frequency] = quantize(visual_dictionary, descriptors, vocabulary_siz
     v_frequency = double(v_frequency);
     
     % Normalize frequencies
-    v_frequency = v_frequency ./ sum(v_frequency);
+    v_frequency = v_frequency ./ max(v_frequency);
 end
