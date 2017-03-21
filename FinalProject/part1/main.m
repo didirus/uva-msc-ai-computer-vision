@@ -71,69 +71,75 @@ end
 
 disp('get class scores..')
 
-% Initialise scores matrices for every class
-scores_airplanes = zeros(nr_images,2);
-scores_motorbikes = zeros(nr_images,2);
-scores_faces = zeros(nr_images,2);
-scores_cars = zeros(nr_images,2);
+% % Initialise scores matrices for every class
+% scores_airplanes = zeros(nr_images,2);
+% scores_motorbikes = zeros(nr_images,2);
+% scores_faces = zeros(nr_images,2);
+% scores_cars = zeros(nr_images,2);
 
-% Keep track of image index by filling the first collumns with index nrs
-% 1:50 = airplanes, 51:100 = motorbikes, 101:150 = faces, 151:200 = cars
-classesids = zeros(nr_images, 1);
-classesids(1:50,:) = 1;
-classesids(51:100,:) = 2;
-classesids(101:150,:) = 3;
-classesids(151:200,:) = 4;
-
-scores_airplanes(:,1) = classesids;
-scores_motorbikes(:,1) = classesids;
-scores_faces(:,1) = classesids;
-scores_cars(:,1) = classesids;
+% % Keep track of image index by filling the first collumns with index nrs
+% % 1:50 = airplanes, 51:100 = motorbikes, 101:150 = faces, 151:200 = cars
+% classesids = zeros(nr_images, 1);
+% classesids(1:50,:) = 1;
+% classesids(51:100,:) = 2;
+% classesids(101:150,:) = 3;
+% classesids(151:200,:) = 4;
+% 
+% scores_airplanes(:,1) = classesids;
+% scores_motorbikes(:,1) = classesids;
+% scores_faces(:,1) = classesids;
+% scores_cars(:,1) = classesids;
 
 % Get class scores of test data according to every class model
-[l_a, accuracy_a, d_p_a] = predict(Y_a, sparse(X_test), model_airplanes_train);
-[l_m, accuracy_m, d_p_m] = predict(Y_m, sparse(X_test), model_motorbikes_train);
-[l_f, accuracy_f, d_p_f] = predict(Y_f, sparse(X_test), model_faces_train);
-[l_c, accuracy_c, d_p_c] = predict(Y_c, sparse(X_test), model_cars_train);
+% [l_a, accuracy_a, d_p_a] = predict(Y_a, sparse(X_test), model_airplanes_train);
+% [l_m, accuracy_m, d_p_m] = predict(Y_m, sparse(X_test), model_motorbikes_train);
+% [l_f, accuracy_f, d_p_f] = predict(Y_f, sparse(X_test), model_faces_train);
+% [l_c, accuracy_c, d_p_c] = predict(Y_c, sparse(X_test), model_cars_train);
 
-% Get the second column of the scores matrix because it represents the
-% scores for the relevant class
-scores_airplanes(:,2) = d_p_a;
-scores_motorbikes(:,2) = d_p_m;
-scores_faces(:,2) = d_p_f;
-scores_cars(:,2) = d_p_c;
+[l_a, accuracy_a, ~] = predict( model_airplanes_train, X_test);
+[l_m, accuracy_m, ~] = predict(model_motorbikes_train, X_test);
+[l_f, accuracy_f, ~] = predict(model_faces_train, X_test);
+[l_c, accuracy_c, ~] = predict(model_cars_train, X_test);
 
-% Order the score matrices to get a ranking
-disp('getting the ranked list..');
-rank_airplanes = flipud(sortrows(scores_airplanes,2));
-rank_motorbikes = flipud(sortrows(scores_motorbikes,2));
-rank_faces = flipud(sortrows(scores_faces,2));
-rank_cars = flipud(sortrows(scores_cars,2));
 
-disp('calculating average precisions:')
-
-rankedlists = {rank_airplanes rank_motorbikes rank_faces, rank_cars};
-
-APs = zeros(1,4);
-for i = 1:length(classes)
-    sum_AP = 0;
-    count = 0;
-    for j = 1:nr_images
-        ranking = cell2mat(rankedlists(i));
-        if ranking(j,1) == i
-            count = count + 1;
-            sum_AP = sum_AP + (count/j);
-        else
-            sum_AP = sum_AP + (0/j);
-        end
-    end
-    APs(:,i) = (1/50) * sum_AP;
-end
-
-MAP = mean(APs);
-disp(APs);
-disp(strcat('MAP: ',num2str(MAP))); 
-
-disp('done!')
+% % Get the second column of the scores matrix because it represents the
+% % scores for the relevant class
+% scores_airplanes(:,2) = d_p_a;
+% scores_motorbikes(:,2) = d_p_m;
+% scores_faces(:,2) = d_p_f;
+% scores_cars(:,2) = d_p_c;
+% 
+% % Order the score matrices to get a ranking
+% disp('getting the ranked list..');
+% rank_airplanes = flipud(sortrows(scores_airplanes,2));
+% rank_motorbikes = flipud(sortrows(scores_motorbikes,2));
+% rank_faces = flipud(sortrows(scores_faces,2));
+% rank_cars = flipud(sortrows(scores_cars,2));
+% 
+% disp('calculating average precisions:')
+% 
+% rankedlists = {rank_airplanes rank_motorbikes rank_faces, rank_cars};
+% 
+% APs = zeros(1,4);
+% for i = 1:length(classes)
+%     sum_AP = 0;
+%     count = 0;
+%     for j = 1:nr_images
+%         ranking = cell2mat(rankedlists(i));
+%         if ranking(j,1) == i
+%             count = count + 1;
+%             sum_AP = sum_AP + (count/j);
+%         else
+%             sum_AP = sum_AP + (0/j);
+%         end
+%     end
+%     APs(:,i) = (1/50) * sum_AP;
+% end
+% 
+% MAP = mean(APs);
+% disp(APs);
+% disp(strcat('MAP: ',num2str(MAP))); 
+% 
+% disp('done!')
 
 
