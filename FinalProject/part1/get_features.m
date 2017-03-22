@@ -1,5 +1,8 @@
 function [ X ] = get_features(imageset, vocab_size, centers, descr_type, set, nr_images)
-    
+    % This function returns the feature matrix of the images
+    % It is made both for the train and test set, so therefore
+    % we added some specific settings for both sets
+
     classes = {'airplanes','motorbikes','faces','cars'};
     
     if strcmp(set, 'train')
@@ -13,12 +16,16 @@ function [ X ] = get_features(imageset, vocab_size, centers, descr_type, set, nr
     row_dims = nr_images * length(classes);
     
     % For every image, get the descriptors, do quantization
-    X = zeros(row_dims, vocab_size); % features frequencies
+    X = zeros(row_dims, vocab_size);
     
     % Repeat for each class
     ind = 1;
     for i=1:length(classes)
+        
+        % Get the imagefile
         filename = char(strcat(imageset, classes(i), dir_name, '/'));
+        
+        % Repeat for every image
         for j = start_im_ind : start_im_ind + nr_images - 1 
             imagename = strcat(filename,'img',num2str(j,'%.3d'),'.jpg');
             I = imread(imagename);
@@ -26,16 +33,13 @@ function [ X ] = get_features(imageset, vocab_size, centers, descr_type, set, nr
             % Get the descriptors
             [~, d] = descriptors(I, descr_type);
             
-            % Check d should be transpose?
             % Get feature frequencies for SVM
             freqs = quantize(centers, d, vocab_size);
-
-            % Check if frequency should be transpose?
             freqs = freqs';
             X(ind,:) = freqs;
-        
-            ind = ind + 1;
             
+            % Update the location index of the matrix
+            ind = ind + 1; 
         end
     end
 end

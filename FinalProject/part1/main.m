@@ -1,26 +1,31 @@
-
+% Tushar Nimbhorkar & Diede Rusticus
+% Computer Vision '17
+% Artificial Intelligence Master
+% University of Amsterdam
 
 clear
 
-experiment_nr = 1;
-descr_type = 'keypoints';
-vocab_size = 400;
-nr_train_images = 100;
-nr_test_images = 50;
-kernel = 'linear';
-N = 700;
-
-experiment(experiment_nr,descr_type,vocab_size,nr_train_images,nr_test_images, kernel,N) 
+% experiment_nr = 1;
+% descr_type = 'keypoints';
+% vocab_size = 400;
+% nr_train_images = 100;
+% nr_test_images = 50;
+% kernel = 'linear';
+% N = 700;
+% 
+% experiment(experiment_nr,descr_type,vocab_size,nr_train_images,nr_test_images, kernel,N) 
 
 experiment_nr = 2;
 descr_type = 'dense';
+descr_step_size = 10;
 vocab_size = 400;
 nr_train_images = 100;
 nr_test_images = 50;
 kernel = 'linear';
 N = 700;
 
-experiment(experiment_nr,descr_type,vocab_size,nr_train_images,nr_test_images, kernel,N) 
+
+experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train_images,nr_test_images, kernel,N) 
 
 % 
 % experiment_nr = 3;

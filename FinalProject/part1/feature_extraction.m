@@ -1,16 +1,26 @@
-function [ D ] = feature_extraction(imageset, descr_type)
+function [ D ] = feature_extraction(imageset, descr_type,descr_step_size)
 
     % Define the 4 classes
-    Classes = {'airplanes_train','motorbikes_train','faces_train','cars_train'};
+    classes = {'airplanes','motorbikes','faces','cars'};
     
-    % For every image, get the descriptors with keypoint sampling
+    % For every image, get the descriptors according to the descriptor type
     D = [];
-    for i=1:length(Classes)
-        filename = char(strcat(imageset, Classes(i), '/' ));
-        for j = 1:250 % subdata = 1:5, for imagedata should >= 100
+    for i=1:length(classes)
+        filename = char(strcat(imageset, classes(i), '_train/' ));
+        
+        % Use 250 images for the descriptors
+        for j = 1:250
+            
             imagename = strcat(filename,'img',num2str(j,'%.3d'),'.jpg');
             I = imread(imagename);
-            [~, d] = descriptors(I, descr_type);
+            
+            % Print the progress of the descriptor
+            if mod(j,50) == 0
+                disp(strcat(num2str(j)))
+            end
+            
+            % Get the descriptors
+            [~, d] = descriptors(I, descr_type,descr_step_size);
             D = vertcat(D,d');
         end
     end
