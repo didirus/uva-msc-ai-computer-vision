@@ -1,0 +1,9 @@
+Experiment nr: 1
+Voc. size: 400
+N: 700
+Descriptor: keypoints
+Nr train images: 100
+Nr test images: 50
+Kernel: linear
+APs: 0.90101 0.88692 0.89696 0.83988
+mAP: 0.88119
