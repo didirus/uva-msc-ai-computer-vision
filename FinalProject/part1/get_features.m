@@ -1,4 +1,4 @@
-function [ X ] = get_features(imageset, vocab_size, centers, descr_type, set, nr_images)
+function [ X ] = get_features(imageset, d_ims, vocab_size, centers, descr_type, set, nr_images)
     % This function returns the feature matrix of the images
     % It is made both for the train and test set, so therefore
     % we added some specific settings for both sets
@@ -6,7 +6,7 @@ function [ X ] = get_features(imageset, vocab_size, centers, descr_type, set, nr
     classes = {'airplanes','motorbikes','faces','cars'};
     
     if strcmp(set, 'train')
-        start_im_ind = 251;
+        start_im_ind = d_ims+1;
         dir_name = '_train';
     elseif strcmp(set, 'test') 
         start_im_ind = 1;

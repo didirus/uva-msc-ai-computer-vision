@@ -1,4 +1,4 @@
-function [ D ] = feature_extraction(imageset, descr_type,descr_step_size)
+function [ D ] = feature_extraction(imageset, d_ims, descr_type,descr_step_size)
 
     % Define the 4 classes
     classes = {'airplanes','motorbikes','faces','cars'};
@@ -9,7 +9,7 @@ function [ D ] = feature_extraction(imageset, descr_type,descr_step_size)
         filename = char(strcat(imageset, classes(i), '_train/' ));
         
         % Use 250 images for the descriptors
-        for j = 1:250
+        for j = 1:d_ims
             
             imagename = strcat(filename,'img',num2str(j,'%.3d'),'.jpg');
             I = imread(imagename);

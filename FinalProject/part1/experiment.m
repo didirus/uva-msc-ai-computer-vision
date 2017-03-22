@@ -1,4 +1,4 @@
-function experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train_images,nr_test_images, kernel,N) 
+function experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train_images,nr_test_images, kernel,N, d_ims) 
     % This function runs the whole experiment with the given parameter
     % settings. It checks everytime if an object already exists in the
     % directory, so that we don't have to compute everything everytime. 
@@ -17,7 +17,7 @@ function experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train
     disp('feature extraction..')
     if exist(D_filename, 'file') ~= 2
         disp('no D file yet, so making now..')
-        D = feature_extraction(folder, descr_type,descr_step_size);
+        D = feature_extraction(folder, d_ims, descr_type,descr_step_size);
         save(D_filename, 'D');
     elseif exist('D', 'var') ~= 1
         load(D_filename);
@@ -28,6 +28,8 @@ function experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train
     if exist(centers_filename, 'file') ~= 2
         disp('no cluster centers yet, so making now..')
         [~,centers] = kmeans(single(D),vocab_size,'MaxIter',N,'Display','iter');
+%         [~,centers] = kmeans1(single(D), vocab_size); %new k-means version
+%         centers = centers';
         save(centers_filename, 'centers');
     elseif exist('centers', 'var') ~= 1 && exist(centers_filename,'file') == 2
         load(centers_filename);
@@ -38,7 +40,7 @@ function experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train
     % Get the features of the training images
     disp('getting training features..')
     if exist(X_train_filename, 'file') ~= 2
-        X_train = get_features(folder, vocab_size, centers, descr_type, 'train', nr_train_images);
+        X_train = get_features(folder, d_ims, vocab_size, centers, descr_type, 'train', nr_train_images);
         save(X_train_filename, 'X_train');
     elseif exist(X_train_filename, 'var') ~= 1
         load(X_train_filename)
@@ -70,7 +72,7 @@ function experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train
     % Get the features of the test images
     disp('getting test features..')
     if exist(X_test_filename, 'file') ~= 2
-        X_test = get_features(folder, vocab_size, centers, descr_type, 'test', nr_test_images);
+        X_test = get_features(folder, d_ims, vocab_size, centers, descr_type, 'test', nr_test_images);
         save(X_test_filename, 'X_test');
     elseif exist(X_test_filename, 'var') ~= 1
         load(X_test_filename)
