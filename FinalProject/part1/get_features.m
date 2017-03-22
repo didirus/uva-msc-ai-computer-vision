@@ -1,4 +1,4 @@
-function [ X ] = get_features(imageset, d_ims, vocab_size, centers, descr_type, set, nr_images)
+function [ X ] = get_features(imageset, d_ims, vocab_size, centers, descr_type, set, nr_images, descr_step_size)
     % This function returns the feature matrix of the images
     % It is made both for the train and test set, so therefore
     % we added some specific settings for both sets
@@ -31,7 +31,7 @@ function [ X ] = get_features(imageset, d_ims, vocab_size, centers, descr_type, 
             I = imread(imagename);
             
             % Get the descriptors
-            [~, d] = descriptors(I, descr_type);
+            [~, d] = descriptors(I, descr_type, descr_step_size);
             
             % Get feature frequencies for SVM
             freqs = quantize(centers, d, vocab_size);

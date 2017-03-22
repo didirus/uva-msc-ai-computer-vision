@@ -5,67 +5,67 @@
 
 clear
 
-experiment_nr = 1;
-descr_type = 'keypoints';
-descr_step_size = 1;
-vocab_size = 400;
-d_ims = 100;
-nr_train_images = 100;
-nr_test_images = 50;
-kernel = 'linear';
-N = 700;
-
-experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train_images,nr_test_images, kernel,N, d_ims) 
-
-experiment_nr = 2;
-descr_type = 'dense';
-descr_step_size = 10;
-vocab_size = 400;
-d_ims = 100;
-nr_train_images = 100;
-nr_test_images = 50;
-kernel = 'linear';
-N = 700;
-
-experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train_images,nr_test_images, kernel,N, d_ims) 
-
-experiment_nr = 3;
-descr_type = 'dense';
-descr_step_size = 10;
-vocab_size = 800;
-d_ims = 100;
-nr_train_images = 100;
-nr_test_images = 50;
-kernel = 'linear';
-N = 700;
-
-experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train_images,nr_test_images, kernel,N, d_ims) 
-
-
-experiment_nr = 4;
-descr_type = 'dense';
-descr_step_size = 10;
-vocab_size = 1600;
-d_ims = 100;
-nr_train_images = 100;
-nr_test_images = 50;
-kernel = 'linear';
-N = 700;
-
-experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train_images,nr_test_images, kernel,N, d_ims) 
-
-
-experiment_nr = 5;
-descr_type = 'dense';
-descr_step_size = 10;
-vocab_size = 2000;
-d_ims = 100;
-nr_train_images = 100;
-nr_test_images = 50;
-kernel = 'linear';
-N = 700;
-
-experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train_images,nr_test_images, kernel,N, d_ims) 
+% experiment_nr = 1;
+% descr_type = 'keypoints';
+% descr_step_size = 1;
+% vocab_size = 400;
+% d_ims = 100;
+% nr_train_images = 100;
+% nr_test_images = 50;
+% kernel = 'linear';
+% N = 700;
+% 
+% experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train_images,nr_test_images, kernel,N, d_ims) 
+% 
+% experiment_nr = 2;
+% descr_type = 'dense';
+% descr_step_size = 10;
+% vocab_size = 400;
+% d_ims = 100;
+% nr_train_images = 100;
+% nr_test_images = 50;
+% kernel = 'linear';
+% N = 700;
+% 
+% experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train_images,nr_test_images, kernel,N, d_ims) 
+% 
+% experiment_nr = 3;
+% descr_type = 'dense';
+% descr_step_size = 10;
+% vocab_size = 800;
+% d_ims = 100;
+% nr_train_images = 100;
+% nr_test_images = 50;
+% kernel = 'linear';
+% N = 700;
+% 
+% experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train_images,nr_test_images, kernel,N, d_ims) 
+% 
+% 
+% experiment_nr = 4;
+% descr_type = 'dense';
+% descr_step_size = 10;
+% vocab_size = 1600;
+% d_ims = 100;
+% nr_train_images = 100;
+% nr_test_images = 50;
+% kernel = 'linear';
+% N = 700;
+% 
+% experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train_images,nr_test_images, kernel,N, d_ims) 
+% 
+% 
+% experiment_nr = 5;
+% descr_type = 'dense';
+% descr_step_size = 10;
+% vocab_size = 2000;
+% d_ims = 100;
+% nr_train_images = 100;
+% nr_test_images = 50;
+% kernel = 'linear';
+% N = 700;
+% 
+% experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train_images,nr_test_images, kernel,N, d_ims) 
 
 
 experiment_nr = 6;

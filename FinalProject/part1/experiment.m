@@ -40,7 +40,7 @@ function experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train
     % Get the features of the training images
     disp('getting training features..')
     if exist(X_train_filename, 'file') ~= 2
-        X_train = get_features(folder, d_ims, vocab_size, centers, descr_type, 'train', nr_train_images);
+        X_train = get_features(folder, d_ims, vocab_size, centers, descr_type, 'train', nr_train_images, descr_step_size);
         save(X_train_filename, 'X_train');
     elseif exist(X_train_filename, 'var') ~= 1
         load(X_train_filename)
@@ -72,7 +72,7 @@ function experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train
     % Get the features of the test images
     disp('getting test features..')
     if exist(X_test_filename, 'file') ~= 2
-        X_test = get_features(folder, d_ims, vocab_size, centers, descr_type, 'test', nr_test_images);
+        X_test = get_features(folder, d_ims, vocab_size, centers, descr_type, 'test', nr_test_images, descr_step_size);
         save(X_test_filename, 'X_test');
     elseif exist(X_test_filename, 'var') ~= 1
         load(X_test_filename)
