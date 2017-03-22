@@ -8,7 +8,7 @@ function experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train
 
     % Define filenames to save and load objects
     D_filename = strcat('objects/D_', descr_type, '.mat');
-    centers_filename = strcat('objects/centers_',num2str(vocab_size),'.mat');
+    centers_filename = strcat('objects/centers_',num2str(vocab_size),'_',descr_type,'.mat');
     X_train_filename = strcat('objects/X_train_', num2str(vocab_size),'_',descr_type,'_',num2str(nr_train_images),'.mat');
     M_filename = strcat('_',num2str(vocab_size),'_',descr_type,'_',num2str(nr_train_images),'_',kernel,'.mat');
     X_test_filename = strcat('objects/X_test_', num2str(vocab_size),'_',descr_type,'_',num2str(nr_train_images),'.mat');
@@ -27,7 +27,7 @@ function experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train
     disp('k-means..')
     if exist(centers_filename, 'file') ~= 2
         disp('no cluster centers yet, so making now..')
-        [~,centers] = kmeans(single(D),vocab_size,'MaxIter',N,'Display','final');
+        [~,centers] = kmeans(single(D),vocab_size,'MaxIter',N,'Display','iter');
         save(centers_filename, 'centers');
     elseif exist('centers', 'var') ~= 1 && exist(centers_filename,'file') == 2
         load(centers_filename);

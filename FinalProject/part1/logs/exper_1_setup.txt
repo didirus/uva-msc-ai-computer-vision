@@ -2,6 +2,8 @@ Experiment nr: 1
 Voc. size: 400
 N: 700
 Descriptor: keypoints
+Descriptor step size: 1
+Nr vocab frac: 0.53
 Nr train images: 100
 Nr test images: 50
 Kernel: linear
