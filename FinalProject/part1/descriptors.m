@@ -43,7 +43,7 @@ function [ f , d ] = descriptors(I, type, step_size)
 
     % RGB SIFT
     if strcmp(type,'RGBSIFT')
-        [f,d] = vl_phow(I,'color','rgb');
+        [f,d] = vl_phow(I,'color','rgb','step', step_size);
     end
     
     % rgb SIFT
@@ -63,7 +63,7 @@ function [ f , d ] = descriptors(I, type, step_size)
         normImage(:,:,1) = r ;
         normImage(:,:,2) = g ;
         normImage(:,:,3) = b ;
-        [f , d] = descriptors(single(normImage),'RGBSIFT');
+        [f , d] = descriptors(single(normImage),'RGBSIFT','step', step_size);
 
     end
 

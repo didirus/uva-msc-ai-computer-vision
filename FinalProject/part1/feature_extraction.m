@@ -20,7 +20,9 @@ function [ D ] = feature_extraction(imageset, d_ims, descr_type,descr_step_size)
             end
             
             % Get the descriptors
+            tic;
             [~, d] = descriptors(I, descr_type,descr_step_size);
+            toc;
             D = vertcat(D,d');
         end
     end
