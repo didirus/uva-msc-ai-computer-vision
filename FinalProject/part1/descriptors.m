@@ -69,7 +69,7 @@ function [ f , d ] = descriptors(I, type, step_size)
 
     % Opponent SIFT
     if strcmp(type,'opponent')
-        [f,d] = vl_phow(I,'color','opponent');
+        [f,d] = vl_phow(I,'color','opponent', 'step', step_size);
     end
 
     

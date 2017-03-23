@@ -183,10 +183,3 @@ experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train_images,n
 % N = 700;
 % 
 % experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train_images,nr_test_images, kernel,N, d_ims) 
-% 
-% I = imread('../Caltech4/ImageData/airplanes_train/img001.jpg');
-% type = 'RGBSIFT';
-% step_size = 1;
-% tic;
-% [ f , d ] = descriptors(I, type, step_size);
-% toc;
