@@ -20,7 +20,7 @@ function [ D ] = feature_extraction(imageset, d_ims, descr_type,descr_step_size)
             end
             
             % Get the descriptors
-            [~, d] = descriptors(I, descr_type,descr_step_size);
+            [~, d] = descriptors(single(I), descr_type,descr_step_size);
             D = vertcat(D,d');
         end
     end

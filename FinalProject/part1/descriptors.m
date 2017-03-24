@@ -48,11 +48,18 @@ function [ f , d ] = descriptors(I, type, step_size)
     
     % rgb SIFT
     if strcmp(type,'rgbSIFT')
-
-        r = I(:,:,1);
-        g = I(:,:,2);
-        b = I(:,:,3);
+        if size(I,3) == 1
+            r = I(:,:);
+            g = I(:,:);
+            b = I(:,:);
+        else
+            r = I(:,:,1);
+            g = I(:,:,2);
+            b = I(:,:,3);
+        end
+        
         [a1,b1] = size(r);
+        
         sumrgb = r + g + b;
         r = double(r) ./ double(sumrgb);
         g = double(g) ./ double(sumrgb);
@@ -63,8 +70,15 @@ function [ f , d ] = descriptors(I, type, step_size)
         normImage(:,:,1) = r ;
         normImage(:,:,2) = g ;
         normImage(:,:,3) = b ;
-        [f , d] = descriptors(single(normImage),'RGBSIFT','step', step_size);
-
+        
+        normImage = im2single(normImage);
+        
+        [~ , d1] = vl_sift(normImage(:,:,1));
+        [~ , d2] = vl_sift(normImage(:,:,2));
+        [~ , d3] = vl_sift(normImage(:,:,3));
+        d = [d1';d2';d3'];
+        d = d';
+        f = 0;
     end
 
     % Opponent SIFT

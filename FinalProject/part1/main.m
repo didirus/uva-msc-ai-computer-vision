@@ -81,17 +81,17 @@ clear
 % experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train_images,nr_test_images, kernel,N, d_ims) 
 % From 7 continue again
 
-experiment_nr = 7;
-descr_type = 'RGBSIFT';
-descr_step_size = 10;
-vocab_size = 400;
-d_ims = 100;
-nr_train_images = 100;
-nr_test_images = 50;
-kernel = 'linear';
-N = 100;
-
-experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train_images,nr_test_images, kernel,N, d_ims) 
+% experiment_nr = 7;
+% descr_type = 'RGBSIFT';
+% descr_step_size = 10;
+% vocab_size = 400;
+% d_ims = 100;
+% nr_train_images = 100;
+% nr_test_images = 50;
+% kernel = 'linear';
+% N = 100;
+% 
+% experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train_images,nr_test_images, kernel,N, d_ims) 
 
 % 
 % experiment_nr = 8;
@@ -102,10 +102,11 @@ experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train_images,n
 % nr_train_images = 100;
 % nr_test_images = 50;
 % kernel = 'linear';
-% N = 700;
+% N = 100;
 % 
-% experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train_images,nr_test_images, kernel,N, d_ims) 
-% 
+% experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train_images,nr_test_images, kernel,N, d_ims)
+
+
 % 
 % experiment_nr = 9;
 % descr_type = 'opponent';
@@ -119,33 +120,33 @@ experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train_images,n
 % 
 % experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train_images,nr_test_images, kernel,N, d_ims) 
 % 
-% 
-% experiment_nr = 10;
-% descr_type = ?????
-% descr_step_size = 10;
-% vocab_size = 400;
-% d_ims = 100;
-% nr_train_images = 50;
-% nr_test_images = 50;
-% kernel = 'linear';
-% N = 700;
-% 
-% experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train_images,nr_test_images, kernel,N, d_ims) 
-% 
-% 
-% experiment_nr = 11;
-% descr_type = ???
-% descr_step_size = 10;
-% vocab_size = 400;
-% d_ims = 100;
-% nr_train_images = 150;
-% nr_test_images = 50;
-% kernel = 'linear';
-% N = 700;
-% 
-% experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train_images,nr_test_images, kernel,N, d_ims) 
-% 
-% 
+
+experiment_nr = 10;
+descr_type = 'dense';
+descr_step_size = 10;
+vocab_size = 400;
+d_ims = 100;
+nr_train_images = 50;
+nr_test_images = 50;
+kernel = 'linear';
+N = 700;
+
+experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train_images,nr_test_images, kernel,N, d_ims) 
+
+
+experiment_nr = 11;
+descr_type = 'dense';
+descr_step_size = 10;
+vocab_size = 400;
+d_ims = 100;
+nr_train_images = 150;
+nr_test_images = 50;
+kernel = 'linear';
+N = 700;
+
+experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train_images,nr_test_images, kernel,N, d_ims) 
+
+
 % experiment_nr = 12;
 % descr_type = ????
 % descr_step_size = 10;
