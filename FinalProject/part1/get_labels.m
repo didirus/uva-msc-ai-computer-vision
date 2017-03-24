@@ -1,7 +1,7 @@
 function [ Y ] = get_labels(class, set, nr_images)
     
     if strcmp(set, 'train')
-        start_im_ind = 251;
+        start_im_ind = 151;
     elseif strcmp(set, 'test') 
         start_im_ind = 1;
     end

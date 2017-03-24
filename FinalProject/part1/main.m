@@ -146,18 +146,18 @@ clear
 % 
 % experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train_images,nr_test_images, kernel,N, d_ims) 
 
-
-experiment_nr = 12;
-descr_type = 'dense';
-descr_step_size = 10;
-vocab_size = 400;
-d_ims = 100;
-nr_train_images = 250;
-nr_test_images = 50;
-kernel = 'linear';
-N = 700;
-
-experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train_images,nr_test_images, kernel,N, d_ims) 
+% 
+% experiment_nr = 12;
+% descr_type = 'dense';
+% descr_step_size = 10;
+% vocab_size = 400;
+% d_ims = 100;
+% nr_train_images = 250;
+% nr_test_images = 50;
+% kernel = 'linear';
+% N = 700;
+% 
+% experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train_images,nr_test_images, kernel,N, d_ims) 
 
 
 experiment_nr = 13;
@@ -165,9 +165,9 @@ descr_type = 'dense';
 descr_step_size = 10;
 vocab_size = 400;
 d_ims = 100;
-nr_train_images = % choose nr images based on last three experiments.
+nr_train_images = 250;% choose nr images based on last three experiments.
 nr_test_images = 50;
-kernel = 'RBF';
+kernel = 'rbf';
 N = 700;
 
 experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train_images,nr_test_images, kernel,N, d_ims) 
@@ -178,9 +178,9 @@ descr_type = 'dense';
 descr_step_size = 10;
 vocab_size = 400;
 d_ims = 100;
-nr_train_images = % same nr as exp 13.
+nr_train_images = 250;% same nr as exp 13.
 nr_test_images = 50;
-kernel = % pick a third kernel function
+kernel = 'polynomial';% pick a third kernel function
 N = 700;
 
 experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train_images,nr_test_images, kernel,N, d_ims) 
