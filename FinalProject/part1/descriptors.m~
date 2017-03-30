@@ -33,15 +33,16 @@ function [ f , d ] = descriptors(I, type, step_size)
             g = I(:,:,2);
             b = I(:,:,3);
         end
-        % Point sampling
-        [~ , d1] = vl_sift(single(r), 'frames', f);
-        [~ , d2] = vl_sift(single(g), 'frames', f);
-        [~ , d3] = vl_sift(single(b), 'frames', f);
+        [~ , d1] = vl_sift(r);
+        [~ , d2] = vl_sift(g);
+        [~ , d3] = vl_sift(b);
         d = [d1';d2';d3'];
         d = d';
         
-        
-        
+        % Point sampling
+        [f_, d_] = vl_sift(I, 'frames', f);
+        f = f_;
+        d = d_;
     end
     
     % Point SIFT
@@ -52,25 +53,7 @@ function [ f , d ] = descriptors(I, type, step_size)
             I = rgb2gray(I);
         end
 
-        [f, ~] = vl_sift(I);
-        if size(I,3) == 1
-            r = I(:,:);
-            g = I(:,:);
-            b = I(:,:);
-        else
-            r = I(:,:,1);
-            g = I(:,:,2);
-            b = I(:,:,3);
-        end
-        % Point sampling
-        [~ , d1] = vl_sift(single(r), 'frames', f);
-        [~ , d2] = vl_sift(single(g), 'frames', f);
-        [~ , d3] = vl_sift(single(b), 'frames', f);
-        d = [d1';d2';d3'];
-        d = d';
-        
-        
-        
+        [f, d] = vl_sift(I);
     end
 
     % RGB SIFT
