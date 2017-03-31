@@ -13,6 +13,8 @@ function [ f , d ] = descriptors(I, type, step_size)
         % Convert to grayscale and to single precision
         if size(I,3) > 1
             I_gray = rgb2gray(I);
+        else
+            I_gray = I;
         end
         I_gray = im2single(I_gray);
         
@@ -80,6 +82,22 @@ function [ f , d ] = descriptors(I, type, step_size)
     
     % rgb SIFT
     if strcmp(type,'rgbSIFT')
+        if size(I,3) > 1
+            I_gray = rgb2gray(I);
+        else
+            I_gray = I;
+        end
+        I_gray = im2single(I_gray);
+        
+        % Smooth image
+        Is = vl_imsmooth(I_gray, sqrt((binSize/magnif)^2 - .25));
+        
+        % Dense sampling
+        [f, ~] = vl_dsift(Is, 'size', binSize, 'step', step_size) ;
+        f(3,:) = binSize/magnif ;
+        f(4,:) = 0 ;
+        
+        
         if size(I,3) == 1
             r = I(:,:);
             g = I(:,:);
@@ -105,17 +123,51 @@ function [ f , d ] = descriptors(I, type, step_size)
         
         normImage = im2single(normImage);
         
-        [~ , d1] = vl_sift(normImage(:,:,1));
-        [~ , d2] = vl_sift(normImage(:,:,2));
-        [~ , d3] = vl_sift(normImage(:,:,3));
+        [~ , d1] = vl_sift(normImage(:,:,1),'frames', f);
+        [~ , d2] = vl_sift(normImage(:,:,2),'frames', f);
+        [~ , d3] = vl_sift(normImage(:,:,3),'frames', f);
         d = [d1';d2';d3'];
         d = d';
-        f = 0;
+%         f = 0;
     end
 
     % Opponent SIFT
     if strcmp(type,'opponent')
         [f,d] = vl_phow(I,'color','opponent', 'step', step_size);
+    end
+    
+    if strcmp(type,'grayDense')
+         if size(I,3) > 1
+            I_gray = rgb2gray(I);
+        else
+            I_gray = I;
+        end
+        I_gray = im2single(I_gray);
+        
+        % Smooth image
+        Is = vl_imsmooth(I_gray, sqrt((binSize/magnif)^2 - .25));
+        
+        % Dense sampling
+        [f, ~] = vl_dsift(Is, 'size', binSize, 'step', step_size) ;
+        f(3,:) = binSize/magnif ;
+        f(4,:) = 0 ;
+        [~ , d] = vl_sift(single(I_gray), 'frames', f);
+%         d = d';
+        
+    end
+    
+    if strcmp(type,'grayKeypoint')
+         if size(I,3) > 1
+            I_gray = rgb2gray(I);
+        else
+            I_gray = I;
+        end
+        I_gray = im2single(I_gray);
+        
+        % Smooth image
+        [f , d] = vl_sift(single(I_gray));
+%         d = d';
+        
     end
 
     
