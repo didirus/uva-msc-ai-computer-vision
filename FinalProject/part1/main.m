@@ -209,7 +209,7 @@ clear
 % 
 % experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train_images,nr_test_images, kernel,N, d_ims) 
 
-experiment_nr = 16;
+experiment_nr = 17;
 descr_type = 'opponentKeypoint';
 descr_step_size = 10;
 vocab_size = 400;

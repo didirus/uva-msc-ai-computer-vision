@@ -1,0 +1,11 @@
+Experiment nr: 17
+Voc. size: 400
+N: 100
+Descriptor: opponentKeypoint
+Descriptor step size: 10
+Nr vocab frac: 0.53
+Nr train images: 100
+Nr test images: 50
+Kernel: linear
+APs: 0.94715 0.93988 0.94526 0.91966
+mAP: 0.93799

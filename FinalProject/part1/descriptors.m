@@ -178,14 +178,6 @@ function [ f , d ] = descriptors(I, type, step_size)
         end
         I_gray = im2single(I_gray);
         
-        % Smooth image
-        Is = vl_imsmooth(I_gray, sqrt((binSize/magnif)^2 - .25));
-        
-        % Dense sampling
-        [f, ~] = vl_dsift(Is, 'size', binSize, 'step', step_size) ;
-        f(3,:) = binSize/magnif ;
-        f(4,:) = 0 ;
-        
         
         if size(I,3) == 1
             r = I(:,:);
@@ -219,11 +211,12 @@ function [ f , d ] = descriptors(I, type, step_size)
         
         oppImage = im2single(oppImage);
         
-        [~ , d1] = vl_sift(oppImage(:,:,1),'frames', f);
-        [~ , d2] = vl_sift(oppImage(:,:,2),'frames', f);
-        [~ , d3] = vl_sift(oppImage(:,:,3),'frames', f);
+        [~ , d1] = vl_sift(oppImage(:,:,1));
+        [~ , d2] = vl_sift(oppImage(:,:,2));
+        [~ , d3] = vl_sift(oppImage(:,:,3));
         d = [d1';d2';d3'];
         d = d';
+        f = 0;
     end
     
 
