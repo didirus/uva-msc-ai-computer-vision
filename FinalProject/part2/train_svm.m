@@ -13,6 +13,7 @@ nets.fine_tuned.layers{end}.type = 'softmax';
 [svm.pre_trained.predictions, svm.pre_trained.accuracy] = get_predictions(svm.pre_trained);
 [svm.fine_tuned.predictions, svm.fine_tuned.accuracy] = get_predictions(svm.fine_tuned);
 
+disp(size(svm.fine_tuned.trainset))
 fprintf('\n\n\n\n\n\n\n\n');
 fprintf('CNN: fine_tuned_accuracy: %0.2f, SVM: pre_trained_accuracy: %0.2f, fine_tuned_accuracy: %0.2f\n', nn.accuracy, svm.pre_trained.accuracy(1), svm.fine_tuned.accuracy(1));
 

@@ -20,7 +20,7 @@ opts.train = struct() ;
 opts = vl_argparse(opts, varargin) ;
 if ~isfield(opts.train, 'gpus'), opts.train.gpus = []; end;
 
-%opts.train.gpus = [1];
+opts.train.gpus = [];
 
 
 
@@ -33,7 +33,7 @@ net = update_model();
 if exist(opts.imdbPath, 'file')
     disp('I already exist')
   imdb = load(opts.imdbPath) ;
-  imdb.images.data = single(imdb.images.data) ;
+  imdb.images.data = single(imdb.images.data) ; %why this?
 else
   disp('I being recreated')
   imdb = getCaltechIMDB() ;
@@ -105,9 +105,9 @@ for s = 1:length(splits)
     end
 end
 
-data = zeros(32,32,3,n);
-labels = zeros(1,n);
-sets = zeros(1,n);
+data = single(zeros(32,32,3,n));
+labels = single(zeros(1,n));
+sets = single(zeros(1,n));
 ind = 1;
 
 for s = 1:length(splits)
@@ -147,6 +147,8 @@ for s = 1:length(splits)
     end
 end
 data = single(data);
+labels = single(labels);
+sets = single(sets);
 %%
 % subtract mean
 dataMean = mean(data(:, :, :, sets == 1), 4);
