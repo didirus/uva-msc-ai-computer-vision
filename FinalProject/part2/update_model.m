@@ -19,7 +19,7 @@ net.meta.trainOpts.learningRate = [ 0.05*ones(1,20) ...
 net.meta.trainOpts.weightDecay = 0.0001 ;
 net.meta.trainOpts.batchSize = 100 ; %[50, 100]
 net.meta.trainOpts.numEpochs = 40; % (40,80,120) numel(net.meta.trainOpts.learningRate) ;
-% try using numel
+
 %% Define network 
 net.layers = {} ;
 
@@ -73,7 +73,7 @@ net.layers{end+1} = struct('type', 'relu') ;
 %% TODO: Define the structure here, so that the network outputs 4-class rather than 10 (as in the pretrained network)
 % Block 5
 
-NEW_INPUT_SIZE  = 64; % 32?
+NEW_INPUT_SIZE  = 64;
 NEW_OUTPUT_SIZE = 4;
 
 net.layers{end+1} = struct('type', 'conv', ...
