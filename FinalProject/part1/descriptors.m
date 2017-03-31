@@ -115,17 +115,17 @@ function [ f , d ] = descriptors(I, type, step_size)
         g = double(g) ./ double(sumrgb);
         b = double(b) ./ double(sumrgb);
         
-        normImage = zeros(a1, b1, 3 );
+        oppImage = zeros(a1, b1, 3 );
 
-        normImage(:,:,1) = r ;
-        normImage(:,:,2) = g ;
-        normImage(:,:,3) = b ;
+        oppImage(:,:,1) = r ;
+        oppImage(:,:,2) = g ;
+        oppImage(:,:,3) = b ;
         
-        normImage = im2single(normImage);
+        oppImage = im2single(oppImage);
         
-        [~ , d1] = vl_sift(normImage(:,:,1),'frames', f);
-        [~ , d2] = vl_sift(normImage(:,:,2),'frames', f);
-        [~ , d3] = vl_sift(normImage(:,:,3),'frames', f);
+        [~ , d1] = vl_sift(oppImage(:,:,1),'frames', f);
+        [~ , d2] = vl_sift(oppImage(:,:,2),'frames', f);
+        [~ , d3] = vl_sift(oppImage(:,:,3),'frames', f);
         d = [d1';d2';d3'];
         d = d';
 %         f = 0;
@@ -169,6 +169,63 @@ function [ f , d ] = descriptors(I, type, step_size)
 %         d = d';
         
     end
+    
+    if strcmp(type,'opponentKeypoint')
+    if size(I,3) > 1
+            I_gray = rgb2gray(I);
+        else
+            I_gray = I;
+        end
+        I_gray = im2single(I_gray);
+        
+        % Smooth image
+        Is = vl_imsmooth(I_gray, sqrt((binSize/magnif)^2 - .25));
+        
+        % Dense sampling
+        [f, ~] = vl_dsift(Is, 'size', binSize, 'step', step_size) ;
+        f(3,:) = binSize/magnif ;
+        f(4,:) = 0 ;
+        
+        
+        if size(I,3) == 1
+            r = I(:,:);
+            g = I(:,:);
+            b = I(:,:);
+        else
+            r = I(:,:,1);
+            g = I(:,:,2);
+            b = I(:,:,3);
+        end
+        
+        [a1,b1] = size(r);
+        r = double(r);
+        g = double(g);
+        b = double(b);
+        
+%         sumrgb = r + g + b;
+%         r = double(r) ./ double(sumrgb);
+%         g = double(g) ./ double(sumrgb);
+%         b = double(b) ./ double(sumrgb);
+%         
+        O1 =  (r-g) / sqrt(2);
+        O2 = (r+g-(2*b)) /sqrt(3) ;
+        O3 = (r+g+b)  / sqrt(3);
+        
+        oppImage = zeros(a1, b1, 3 );
+
+        oppImage(:,:,1) = O1 ;
+        oppImage(:,:,2) = O2 ;
+        oppImage(:,:,3) = O3 ;
+        
+        oppImage = im2single(oppImage);
+        
+        [~ , d1] = vl_sift(oppImage(:,:,1),'frames', f);
+        [~ , d2] = vl_sift(oppImage(:,:,2),'frames', f);
+        [~ , d3] = vl_sift(oppImage(:,:,3),'frames', f);
+        d = [d1';d2';d3'];
+        d = d';
+    end
+    
 
     
 

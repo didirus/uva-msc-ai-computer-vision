@@ -20,5 +20,10 @@ data = load(fullfile(expdir, 'imdb-caltech.mat'));
 data.images.data = single(data.images.data);
 % vl_simplenn_display(nets.pre_trained);
 
-%%
+%% Visualisation
+
+
 train_svm(nets, data);
+visualize_net(nets.fine_tuned,data,'Fine tuned')
+pause(5);
+visualize_net(nets.pre_trained,data,'Pre trained')

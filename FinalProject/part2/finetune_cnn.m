@@ -112,9 +112,9 @@ ind = 1;
 
 for s = 1:length(splits)
     if strcmp(splits(s),splits(1))
-        nr_images = 100;
+        nr_images = 400;
     else
-        nr_images = 20;
+        nr_images = 50;
     end
     for i = 1:length(classes)
         filename = char(strcat('../Caltech4/ImageData/', classes(i),'_', splits(s), '/'));

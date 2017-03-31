@@ -197,8 +197,20 @@ clear
 % 
 % experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train_images,nr_test_images, kernel,N, d_ims) 
 % 
+% experiment_nr = 16;
+% descr_type = 'grayKeypoint';
+% descr_step_size = 10;
+% vocab_size = 400;
+% d_ims = 100;
+% nr_train_images = 100;% same nr as exp 13.
+% nr_test_images = 50;
+% kernel = 'linear';% pick a third kernel function
+% N = 100;
+% 
+% experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train_images,nr_test_images, kernel,N, d_ims) 
+
 experiment_nr = 16;
-descr_type = 'grayKeypoint';
+descr_type = 'opponentKeypoint';
 descr_step_size = 10;
 vocab_size = 400;
 d_ims = 100;
@@ -208,5 +220,4 @@ kernel = 'linear';% pick a third kernel function
 N = 100;
 
 experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train_images,nr_test_images, kernel,N, d_ims) 
-
 
