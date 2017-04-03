@@ -85,19 +85,28 @@ function imdb = getCaltechIMDB()
 classes = {'airplanes', 'cars', 'faces', 'motorbikes'};
 splits = {'train', 'test'};
 
-%% TODO: Implement your loop here, to create the data structure described in the assignment
+%% Our implemented loop, to create the data structure described in the assignment
+
+% Count the total number of coloured images (3 channel images)
 n = 0;
+
+% Both for train and test set
 for s = 1:length(splits)
+
+    % Count images per split
     if strcmp(splits(s),splits(1))
         nr_images = 400;
     else
         nr_images = 50;
     end
+    
+    % Loop over every image of every class in both splits
     for i = 1:length(classes)
         filename = char(strcat('../Caltech4/ImageData/', classes(i),'_', splits(s), '/'));
         for j = 1:nr_images
             imagename = strcat(filename,'img',num2str(j,'%.3d'),'.jpg');
             I = imread(imagename);
+            % Count image when it has more than one channel (coloured image)
             if size(I,3) > 1
                 n = n + 1;
             end
@@ -105,32 +114,48 @@ for s = 1:length(splits)
     end
 end
 
+% Initialise the imdb.images components
+% All images are resized to 32x32 and it is made sure they are defined in three channels
 data = single(zeros(32,32,3,n));
 labels = single(zeros(1,n));
 sets = single(zeros(1,n));
+
+% Keeps track of location in vectors/matrix
 ind = 1;
 
+% Both for train and test set
 for s = 1:length(splits)
+
+    % Count images per split
     if strcmp(splits(s),splits(1))
         nr_images = 400;
     else
         nr_images = 50;
     end
+    
+    % Loop over every image of every class in both splits
     for i = 1:length(classes)
         filename = char(strcat('../Caltech4/ImageData/', classes(i),'_', splits(s), '/'));
-        for j = 1:nr_images % temporary
+        for j = 1:nr_images
             imagename = strcat(filename,'img',num2str(j,'%.3d'),'.jpg');
             I = imread(imagename);
+            
+            % Only if the image is not in grayscale, save the image information in the imdb components
             if size(I,3) > 1
                 I = single(I);
+                
+                % Resizing because pre-trained CNN only accepts 32x32x3 images.
                 I = imresize(I, [32 32]);
                 data(:,:,:,ind) = I;
+                
+                % Assign the correct set according to the split
                 if strcmp(splits(s),splits(1))
                     sets(ind) = 1;
                 else
                     sets(ind) = 2;
                 end
                 
+                % Assign the correct label according to the class
                 if strcmp(classes(i),classes(1))
                     labels(ind) = 1;
                 elseif strcmp(classes(i),classes(2))
@@ -141,6 +166,7 @@ for s = 1:length(splits)
                     labels(ind) = 4;
                 end
                 
+                % Alters the focus location for vectors/matrix
                 ind = ind + 1;
             end
         end
@@ -149,7 +175,7 @@ end
 data = single(data);
 labels = single(labels);
 sets = single(sets);
-%%
+
 % subtract mean
 dataMean = mean(data(:, :, :, sets == 1), 4);
 data = bsxfun(@minus, data, dataMean);
