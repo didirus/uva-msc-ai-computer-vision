@@ -3,221 +3,219 @@
 % Artificial Intelligence Master
 % University of Amsterdam
 
-clear
+% All experiments with the different parameter combinations. Outcomment the
+% experiment you want to test. At the bottom of this script the experiment
+% function is called with the accompanying arguments. 
 
-% experiment_nr = 1;
-% descr_type = 'keypoints';
-% descr_step_size = 1;
-% vocab_size = 400;
-% d_ims = 100;
-% nr_train_images = 100;
-% nr_test_images = 50;
-% kernel = 'linear';
-% N = 700;
-% 
-% experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train_images,nr_test_images, kernel,N, d_ims) 
-% 
+% Our original experiment setup was to evaluate the best setting for each
+% parameter one at a time in the following order:
+%
+% - sampler             [keypoint/dense]        exp 1+2
+% - voc. size           [400/800/1600/2000/4000]exp 3+4+5+6
+% - descriptor          [RGB/rgb/opp/gray]      exp 7+8+9
+% - nr. train images    [50/150/250]            exp 10+11+12
+% - kernel function     [linear/RBF/polynomial] exp 13+14
+%
+% However, after running the experiments we found out that it is required
+% to check for each descriptor both the keypoint and dense sampler option. 
+% Therefore, we extended our experiment setup with exp 15+16 testing
+% rgb/gray descriptors for keypoint sampling as well.
+
+
+clear
+ 
+% Exp 1+2 to choose between sampler [keypoints/dense]
+
+experiment_nr = 1;
+sampler = 'keypoints';
+descriptor = 'RGB';
+descr_stepsize = 1;
+vocab_size = 400;
+nr_feature_ims = 100;
+nr_train_images = 100;
+nr_test_images = 50;
+kernel = 'linear';
+N = 700;
+
 % experiment_nr = 2;
-% descr_type = 'dense';
-% descr_step_size = 10;
+% sampler = 'dense';
+% descriptor = 'RGB';
+% descr_stepsize = 10;
 % vocab_size = 400;
-% d_ims = 100;
+% nr_feature_ims = 100;
 % nr_train_images = 100;
 % nr_test_images = 50;
 % kernel = 'linear';
 % N = 700;
 % 
-% experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train_images,nr_test_images, kernel,N, d_ims) 
+% % Dense is winner
+% % Exp 3+4+5+6 to choose between voc. size [400/800/1600/2000/4000]
 % 
 % experiment_nr = 3;
-% descr_type = 'dense';
-% descr_step_size = 10;
+% sampler = 'dense';
+% descriptor = 'RGB';
+% descr_stepsize = 10;
 % vocab_size = 800;
-% d_ims = 100;
+% nr_feature_ims = 100;
 % nr_train_images = 100;
 % nr_test_images = 50;
 % kernel = 'linear';
 % N = 700;
-% 
-% experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train_images,nr_test_images, kernel,N, d_ims) 
-% 
 % 
 % experiment_nr = 4;
-% descr_type = 'dense';
-% descr_step_size = 10;
+% sampler = 'dense';
+% descriptor = 'RGB';
+% descr_stepsize = 10;
 % vocab_size = 1600;
-% d_ims = 100;
+% nr_feature_ims = 100;
 % nr_train_images = 100;
 % nr_test_images = 50;
 % kernel = 'linear';
 % N = 700;
-% 
-% experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train_images,nr_test_images, kernel,N, d_ims) 
-% 
 % 
 % experiment_nr = 5;
-% descr_type = 'dense';
-% descr_step_size = 10;
+% sampler = 'dense';
+% descriptor = 'RGB';
+% descr_stepsize = 10;
 % vocab_size = 2000;
-% d_ims = 100;
+% nr_feature_ims = 100;
 % nr_train_images = 100;
 % nr_test_images = 50;
 % kernel = 'linear';
 % N = 700;
 % 
-% experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train_images,nr_test_images, kernel,N, d_ims) 
-
-
 % experiment_nr = 6;
-% descr_type = 'dense';
-% descr_step_size = 10;
+% sampler = 'dense';
+% descriptor = 'RGB';
+% descr_stepsize = 10;
 % vocab_size = 4000;
-% d_ims = 100;
+% nr_feature_ims = 100;
 % nr_train_images = 100;
 % nr_test_images = 50;
 % kernel = 'linear';
 % N = 700;
 % 
-% experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train_images,nr_test_images, kernel,N, d_ims) 
-% From 7 continue again
-
+% % Voc. size 400 is winner
+% % Exp 7+8+9 to choose between descriptor [RGB/rgb/opp/gray]
+% 
 % experiment_nr = 7;
-% descr_type = 'RGBSIFT';
-% descr_step_size = 10;
+% sampler = 'dense';
+% descriptor = 'rgbSIFT';
+% descr_stepsize = 10;
 % vocab_size = 400;
-% d_ims = 100;
+% nr_feature_ims = 100;
 % nr_train_images = 100;
 % nr_test_images = 50;
 % kernel = 'linear';
 % N = 100;
-% 
-% experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train_images,nr_test_images, kernel,N, d_ims) 
-
 % 
 % experiment_nr = 8;
-% descr_type = 'rgbSIFT';
-% descr_step_size = 10;
+% sampler = 'dense';
+% descriptor = 'opponent';
+% descr_stepsize = 10;
 % vocab_size = 400;
-% d_ims = 100;
-% nr_train_images = 100;
-% nr_test_images = 50;
-% kernel = 'linear';
-% N = 100;
-% 
-% experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train_images,nr_test_images, kernel,N, d_ims)
-
-
-% 
-% experiment_nr = 9;
-% descr_type = 'opponent';
-% descr_step_size = 10;
-% vocab_size = 400;
-% d_ims = 100;
+% nr_feature_ims = 100;
 % nr_train_images = 100;
 % nr_test_images = 50;
 % kernel = 'linear';
 % N = 700;
 % 
-% experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train_images,nr_test_images, kernel,N, d_ims) 
+% experiment_nr = 9;
+% sampler = 'dense';
+% descriptor = 'gray';
+% descr_stepsize = 10;
+% vocab_size = 400;
+% nr_feature_ims = 100;
+% nr_train_images = 100;
+% nr_test_images = 50;
+% kernel = 'linear';
+% N = 100;
 % 
+% % Descriptor RGB is winner
+% % Exp 10+11+12 to choose between nr. train images [50/150/250]
 % 
 % experiment_nr = 10;
-% descr_type = 'dense';
-% descr_step_size = 10;
+% sampler = 'dense';
+% descriptor = 'RGB';
+% descr_stepsize = 10;
 % vocab_size = 400;
-% d_ims = 100;
+% nr_feature_ims = 100;
 % nr_train_images = 50;
 % nr_test_images = 50;
 % kernel = 'linear';
 % N = 700;
 % 
-% experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train_images,nr_test_images, kernel,N, d_ims) 
-% 
-% 
 % experiment_nr = 11;
-% descr_type = 'dense';
-% descr_step_size = 10;
+% sampler = 'dense';
+% descriptor = 'RGB';
+% descr_stepsize = 10;
 % vocab_size = 400;
-% d_ims = 100;
+% nr_feature_ims = 100;
 % nr_train_images = 150;
 % nr_test_images = 50;
 % kernel = 'linear';
 % N = 700;
 % 
-% experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train_images,nr_test_images, kernel,N, d_ims) 
-
-% 
 % experiment_nr = 12;
-% descr_type = 'dense';
-% descr_step_size = 10;
+% sampler = 'dense';
+% descriptor = 'RGB';
+% descr_stepsize = 10;
 % vocab_size = 400;
-% d_ims = 100;
+% nr_feature_ims = 100;
 % nr_train_images = 250;
 % nr_test_images = 50;
 % kernel = 'linear';
 % N = 700;
 % 
-% experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train_images,nr_test_images, kernel,N, d_ims) 
-
+% % 250 train images is winner
+% % Exp 13+14 to choose between kernel functions [linear/RBF/polynomial]
 % 
 % experiment_nr = 13;
-% descr_type = 'dense';
-% descr_step_size = 10;
+% sampler = 'dense';
+% descriptor = 'RGB';
+% descr_stepsize = 10;
 % vocab_size = 400;
-% d_ims = 100;
-% nr_train_images = 250;% choose nr images based on last three experiments.
+% nr_feature_ims = 100;
+% nr_train_images = 250;
 % nr_test_images = 50;
 % kernel = 'rbf';
 % N = 700;
 % 
-% experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train_images,nr_test_images, kernel,N, d_ims) 
-% 
-% 
 % experiment_nr = 14;
-% descr_type = 'dense';
-% descr_step_size = 10;
+% sampler = 'dense';
+% descriptor = 'RGB';
+% descr_stepsize = 10;
 % vocab_size = 400;
-% d_ims = 100;
-% nr_train_images = 250;% same nr as exp 13.
+% nr_feature_ims = 100;
+% nr_train_images = 250;
 % nr_test_images = 50;
-% kernel = 'polynomial';% pick a third kernel function
+% kernel = 'polynomial';
 % N = 700;
 % 
-% experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train_images,nr_test_images, kernel,N, d_ims) 
-
-% experiment_nr = 15;
-% descr_type = 'grayDense';
-% descr_step_size = 10;
-% vocab_size = 400;
-% d_ims = 100;
-% nr_train_images = 100;% same nr as exp 13.
-% nr_test_images = 50;
-% kernel = 'linear';% pick a third kernel function
-% N = 100;
+% % Linear kernel is winner
+% % Exp 15+16 to check keypoint sampler for rgb and gray SIFTs
 % 
-% experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train_images,nr_test_images, kernel,N, d_ims) 
+% experiment_nr = 15;
+% sampler = 'keypoints';
+% descriptor = 'gray';
+% descr_stepsize = 10;
+% vocab_size = 400;
+% nr_feature_ims = 100;
+% nr_train_images = 100;
+% nr_test_images = 50;
+% kernel = 'linear';
+% N = 100;
 % 
 % experiment_nr = 16;
-% descr_type = 'grayKeypoint';
-% descr_step_size = 10;
+% sampler = 'keypoints';
+% descriptor = 'opponent';
+% descr_stepsize = 10;
 % vocab_size = 400;
-% d_ims = 100;
-% nr_train_images = 100;% same nr as exp 13.
+% nr_feature_ims = 100;
+% nr_train_images = 100;
 % nr_test_images = 50;
-% kernel = 'linear';% pick a third kernel function
+% kernel = 'linear';
 % N = 100;
-% 
-% experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train_images,nr_test_images, kernel,N, d_ims) 
 
-experiment_nr = 17;
-descr_type = 'opponentKeypoint';
-descr_step_size = 10;
-vocab_size = 400;
-d_ims = 100;
-nr_train_images = 100;% same nr as exp 13.
-nr_test_images = 50;
-kernel = 'linear';% pick a third kernel function
-N = 100;
-
-experiment(experiment_nr,descr_type,descr_step_size,vocab_size,nr_train_images,nr_test_images, kernel,N, d_ims) 
+experiment(experiment_nr,sampler,descriptor,descr_stepsize,vocab_size,nr_feature_ims,nr_train_images,nr_test_images,kernel,N) 
 

@@ -1,11 +1,15 @@
 Experiment nr: 1
 Voc. size: 400
 N: 700
-Descriptor: keypoints
+Sampler: keypoints
+Descriptor: RGB
 Descriptor step size: 1
-Nr vocab frac: 0.53
+Nr feature images: d
 Nr train images: 100
 Nr test images: 50
 Kernel: linear
-APs: 0.90228 0.85102 0.86208 0.86051
-mAP: 0.86897
+AP airplanes: 0.84746
+AP motorbikes: 0.85393
+AP faces: 0.77882
+AP cars: 0.79706
+mAP: 0.81932
