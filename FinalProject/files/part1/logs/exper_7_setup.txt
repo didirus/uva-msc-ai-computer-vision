@@ -1,0 +1,11 @@
+Experiment nr: 7
+Voc. size: 400
+N: 100
+Descriptor: RGBSIFT
+Descriptor step size: 10
+Nr vocab frac: 0.53
+Nr train images: 100
+Nr test images: 50
+Kernel: linear
+APs: 0.9815 0.91157 0.98183 0.97238
+mAP: 0.96182

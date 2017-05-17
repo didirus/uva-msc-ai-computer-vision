@@ -1,0 +1,11 @@
+Experiment nr: 10
+Voc. size: 400
+N: 700
+Descriptor: dense
+Descriptor step size: 10
+Nr vocab frac: 0.53
+Nr train images: 50
+Nr test images: 50
+Kernel: linear
+APs: 0.96416 0.93567 0.99311 0.95181
+mAP: 0.96119
