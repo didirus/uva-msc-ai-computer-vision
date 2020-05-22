@@ -18,6 +18,6 @@ Harris Corner Detector, Optical flow, Lucas-Kanade, Tracking
 ### Assignment 4:
 Image Alignment and Image Stitching
 ### Final Project:
-
+Image Classification
 
 
